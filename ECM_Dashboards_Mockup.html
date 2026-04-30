@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ECM Senior Services Dashboards — Mockup</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --surface: #ffffff;
+    --border: #e1e5ea;
+    --text: #1f2937;
+    --text-muted: #6b7280;
+    --primary: #1f4e8c;
+    --primary-soft: #eaf1fb;
+    --accent: #2563eb;
+    --emergency: #c62828;
+    --emergency-soft: #fdecea;
+    --urgent: #ef6c00;
+    --urgent-soft: #fff4e5;
+    --standard: #2e7d32;
+    --standard-soft: #e8f5e9;
+    --danger: #b91c1c;
+    --warn: #b45309;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+  }
+
+  /* Layout */
+  .app { display: flex; min-height: 100vh; }
+  .sidebar {
+    width: 240px;
+    background: var(--primary);
+    color: #fff;
+    padding: 20px 0;
+    flex-shrink: 0;
+  }
+  .sidebar-brand {
+    padding: 0 20px 20px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    margin-bottom: 14px;
+  }
+  .sidebar-brand .logo {
+    font-size: 20px; font-weight: 700; letter-spacing: 0.5px;
+  }
+  .sidebar-brand .sub {
+    font-size: 12px; opacity: 0.75; margin-top: 2px;
+  }
+  .nav-label {
+    padding: 8px 20px; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.8px; opacity: 0.65;
+  }
+  .nav-item {
+    display: block; padding: 10px 20px; color: #fff; text-decoration: none;
+    cursor: pointer; border-left: 3px solid transparent; font-size: 14px;
+  }
+  .nav-item:hover { background: rgba(255,255,255,0.08); }
+  .nav-item.active {
+    background: rgba(255,255,255,0.12);
+    border-left-color: #ffd54f;
+    font-weight: 600;
+  }
+
+  .main { flex: 1; padding: 24px 28px; min-width: 0; }
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px;
+  }
+  .page-title { font-size: 22px; font-weight: 700; color: var(--primary); margin: 0; }
+  .page-sub { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
+  .user-chip {
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 6px 12px; border-radius: 999px; font-size: 12px; color: var(--text-muted);
+  }
+
+  /* Dashboard view */
+  .dashboard { display: none; }
+  .dashboard.active { display: block; }
+
+  /* Cards & sections */
+  .section-title {
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.6px;
+    color: var(--text-muted); font-weight: 700; margin: 22px 0 10px 0;
+  }
+  .grid { display: grid; gap: 14px; }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; padding: 16px; min-height: 80px;
+  }
+  .card-title {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px;
+    color: var(--text-muted); font-weight: 700; margin-bottom: 10px;
+  }
+  .stat-big {
+    font-size: 32px; font-weight: 700; color: var(--primary); line-height: 1;
+  }
+  .stat-row {
+    display: flex; justify-content: space-between; padding: 4px 0;
+    font-size: 13px;
+  }
+  .stat-row + .stat-row { border-top: 1px dashed var(--border); }
+
+  /* Performance card with header counter */
+  .perf-card { display: flex; flex-direction: column; }
+  .perf-header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 12px;
+  }
+  .perf-header .label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--text-muted); font-weight: 700;
+  }
+  .perf-header .count { font-size: 28px; font-weight: 700; color: var(--primary); }
+
+  .priority-row {
+    display: flex; justify-content: space-between; padding: 6px 8px;
+    border-radius: 4px; font-size: 13px;
+  }
+  .priority-row.E { background: var(--emergency-soft); color: var(--emergency); }
+  .priority-row.U { background: var(--urgent-soft); color: var(--urgent); }
+  .priority-row.S { background: var(--standard-soft); color: var(--standard); }
+  .priority-row .lbl { font-weight: 600; }
+
+  /* Pill / badge for priority codes */
+  .pill {
+    display: inline-block; padding: 2px 8px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.4px;
+  }
+  .pill.E { background: var(--emergency-soft); color: var(--emergency); }
+  .pill.U { background: var(--urgent-soft); color: var(--urgent); }
+  .pill.S { background: var(--standard-soft); color: var(--standard); }
+
+  /* Tables */
+  table {
+    width: 100%; border-collapse: collapse;
+    background: var(--surface);
+  }
+  th {
+    text-align: left; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.6px; color: var(--text-muted); font-weight: 700;
+    padding: 10px 12px; border-bottom: 1px solid var(--border); background: #fafbfc;
+  }
+  td {
+    padding: 10px 12px; border-bottom: 1px solid var(--border);
+    font-size: 13px; vertical-align: middle;
+  }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: #f7f9fc; }
+
+  .empty-row td {
+    color: var(--text-muted); font-style: italic; text-align: center; padding: 16px;
+  }
+
+  /* Linked name styling (mock) */
+  .case-link {
+    color: var(--accent); text-decoration: none; font-weight: 600;
+  }
+  .case-link:hover { text-decoration: underline; }
+
+  /* Expiring case lists */
+  .expiry-card .item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0;
+  }
+  .expiry-card .item + .item { border-top: 1px solid var(--border); }
+  .expiry-card .meta { font-size: 11px; color: var(--text-muted); }
+
+  /* Banner / divider for major sections */
+  .role-header {
+    background: var(--primary-soft); border-left: 4px solid var(--primary);
+    padding: 12px 16px; margin-bottom: 18px; border-radius: 4px;
+  }
+  .role-header h2 {
+    margin: 0; font-size: 18px; color: var(--primary);
+  }
+  .role-header p { margin: 4px 0 0 0; font-size: 12px; color: var(--text-muted); }
+
+  /* Per-worker sub-table for "past cases expired" */
+  .worker-block {
+    display: grid;
+    grid-template-columns: 140px repeat(4, 1fr);
+    align-items: stretch;
+    border-bottom: 1px solid var(--border);
+  }
+  .worker-block:last-child { border-bottom: none; }
+  .worker-block .wcell {
+    padding: 12px;
+    border-right: 1px solid var(--border);
+  }
+  .worker-block .wcell:last-child { border-right: none; }
+  .worker-name {
+    font-weight: 700; color: var(--primary); display: flex; align-items: center;
+  }
+  .wcell .total {
+    font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 6px;
+  }
+  .wcell .breakdown {
+    font-size: 11px; color: var(--text-muted); line-height: 1.6;
+  }
+  .breakdown .k { display: inline-block; min-width: 64px; font-weight: 600; }
+  .worker-grid-header {
+    display: grid;
+    grid-template-columns: 140px repeat(4, 1fr);
+    background: #fafbfc;
+    border-bottom: 1px solid var(--border);
+  }
+  .worker-grid-header div {
+    padding: 10px 12px; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.6px; color: var(--text-muted); font-weight: 700;
+    border-right: 1px solid var(--border);
+  }
+  .worker-grid-header div:last-child { border-right: none; }
+
+  .table-wrap {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .footer-note {
+    margin-top: 24px; padding: 12px 14px; border-radius: 4px;
+    background: #fff8e1; border: 1px solid #f5d97a; font-size: 12px; color: #6b5300;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo">ECM</div>
+      <div class="sub">Senior Services — Mockup</div>
+    </div>
+    <div class="nav-label">Dashboards</div>
+    <a class="nav-item active" data-target="dfss">DFSS</a>
+    <a class="nav-item" data-target="cas-staff">CAS Staff</a>
+    <a class="nav-item" data-target="cas-supervisor">CAS Supervisor</a>
+    <a class="nav-item" data-target="icas-staff">ICAS Staff</a>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <div class="topbar">
+      <div>
+        <h1 class="page-title" id="pageTitle">DFSS Dashboard</h1>
+        <div class="page-sub" id="pageSub">Department of Family and Support Services — Senior Services intake oversight</div>
+      </div>
+      <div class="user-chip">Mockup data · Demo only</div>
+    </div>
+
+    <!-- ============================== DFSS DASHBOARD ============================== -->
+    <section class="dashboard active" id="dfss">
+
+      <div class="role-header">
+        <h2>DFSS Dashboard</h2>
+        <p>Review pending determinations, monitor CAS performance, and track ICAS regional activity.</p>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title">CAS Determinations to Review</div>
+          <div class="stat-big">12</div>
+          <div class="stat-row" style="margin-top:10px;color:var(--text-muted);font-size:12px;">Awaiting DFSS sign-off</div>
+        </div>
+        <div class="card">
+          <div class="card-title">JICR to Review</div>
+          <div class="stat-big">5</div>
+          <div class="stat-row" style="margin-top:10px;color:var(--text-muted);font-size:12px;">Joint Initial Case Reviews</div>
+        </div>
+        <div class="card">
+          <div class="card-title">TBH to Review</div>
+          <div class="stat-big">3</div>
+          <div class="stat-row" style="margin-top:10px;color:var(--text-muted);font-size:12px;">To Be Heard</div>
+        </div>
+      </div>
+
+      <div class="section-title">CAS Performance <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:11px;margin-left:6px;">— across 3 CAS staff (Marlo Payne, Mariela Mondragon, Demetrious Thomas) + 2 in unassigned queue</span></div>
+      <div class="grid grid-2">
+        <div class="card perf-card">
+          <div class="perf-header">
+            <span class="label">Pending Cases</span>
+            <span class="count">30</span>
+          </div>
+          <div class="priority-row E"><span class="lbl">Emergency</span><span>13</span></div>
+          <div class="priority-row U" style="margin-top:6px;"><span class="lbl">Urgent</span><span>11</span></div>
+          <div class="priority-row S" style="margin-top:6px;"><span class="lbl">Standard</span><span>6</span></div>
+        </div>
+        <div class="card perf-card">
+          <div class="perf-header">
+            <span class="label">Expired Cases</span>
+            <span class="count" style="color:var(--danger);">17</span>
+          </div>
+          <div class="priority-row E"><span class="lbl">Emergency</span><span>5</span></div>
+          <div class="priority-row U" style="margin-top:6px;"><span class="lbl">Urgent</span><span>3</span></div>
+          <div class="priority-row S" style="margin-top:6px;"><span class="lbl">Standard</span><span>9</span></div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:6px;align-items:center;font-size:12px;color:var(--text-muted);margin:18px 0 6px 0;">
+        <span style="font-weight:600;text-transform:uppercase;letter-spacing:0.5px;font-size:11px;">ICAS scope:</span>
+        <span style="background:var(--primary);color:#fff;padding:3px 10px;border-radius:999px;font-weight:600;font-size:11px;">All-Time</span>
+        <span style="background:var(--surface);border:1px solid var(--border);padding:3px 10px;border-radius:999px;font-size:11px;cursor:pointer;">This Year</span>
+        <span style="background:var(--surface);border:1px solid var(--border);padding:3px 10px;border-radius:999px;font-size:11px;cursor:pointer;">Last 30 Days</span>
+      </div>
+
+      <div class="section-title" style="margin-top:6px;">ICAS Performance — by Region</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Region</th>
+              <th>Total</th>
+              <th>Active</th>
+              <th>Closed</th>
+              <th>Started 2026</th>
+              <th>Updated &lt; 30d</th>
+              <th>Stale 60d+</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Region 1 — Rogers Park / Edgewater / Uptown</td><td>42</td><td>28</td><td>14</td><td>6</td><td>22</td><td>3</td></tr>
+            <tr><td>Region 2 — Norwood Park / Jefferson Park / O'Hare</td><td>31</td><td>19</td><td>12</td><td>4</td><td>15</td><td>2</td></tr>
+            <tr><td>Region 3 — Lincoln Park / Near North / Loop</td><td>55</td><td>34</td><td>21</td><td>8</td><td>27</td><td>4</td></tr>
+            <tr><td>Region 4 — Austin / Humboldt Park / West Garfield</td><td>67</td><td>41</td><td>26</td><td>11</td><td>33</td><td>5</td></tr>
+            <tr><td>Region 5 — Bridgeport / McKinley Park / New City</td><td>48</td><td>30</td><td>18</td><td>7</td><td>24</td><td>3</td></tr>
+            <tr><td>Region 6 — Englewood / Chicago Lawn / Gage Park</td><td>52</td><td>33</td><td>19</td><td>9</td><td>26</td><td>4</td></tr>
+            <tr><td>Region 7 — Chatham / Auburn Gresham / Avalon Park</td><td>39</td><td>24</td><td>15</td><td>5</td><td>19</td><td>2</td></tr>
+            <tr><td>Region 8 — South Deering / Pullman / Riverdale</td><td>44</td><td>27</td><td>17</td><td>6</td><td>21</td><td>3</td></tr>
+            <tr style="background:#fafbfc;font-weight:700;">
+              <td>All Regions</td><td>378</td><td>236</td><td>142</td><td>56</td><td>187</td><td>26</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================== CAS STAFF DASHBOARD ============================== -->
+    <section class="dashboard" id="cas-staff">
+
+      <div class="role-header">
+        <h2>CAS Staff Dashboard — Marlo Payne</h2>
+        <p>Your worklist: <strong>11 active</strong> &middot; <strong style="color:var(--danger);">6 expired</strong> &middot; 8 completed (lifetime 25). Numbers tie to Marlo's row in CAS Supervisor.</p>
+      </div>
+
+      <div class="section-title">My Caseload</div>
+      <div class="grid grid-4">
+        <div class="card">
+          <div class="card-title">In Progress</div>
+          <div class="stat-big" style="color:var(--accent);">11</div>
+          <div class="stat-row" style="margin-top:8px;color:var(--text-muted);font-size:11px;">E: 4 &middot; U: 4 &middot; S: 3</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Expired</div>
+          <div class="stat-big" style="color:var(--danger);">6</div>
+          <div class="stat-row" style="margin-top:8px;color:var(--text-muted);font-size:11px;">E: 2 &middot; U: 1 &middot; S: 3</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Completed</div>
+          <div class="stat-big" style="color:var(--standard);">8</div>
+          <div class="stat-row" style="margin-top:8px;color:var(--text-muted);font-size:11px;">E: 3 &middot; U: 2 &middot; S: 3</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Lifetime Assigned</div>
+          <div class="stat-big">25</div>
+          <div class="stat-row" style="margin-top:8px;color:var(--text-muted);font-size:11px;">across all priorities</div>
+        </div>
+      </div>
+
+      <div class="section-title">Case Expiry Pipeline <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:11px;margin-left:6px;">— next 3 days &amp; all expired</span></div>
+      <div class="grid grid-4">
+        <div class="card expiry-card">
+          <div class="card-title">Expiring Today</div>
+          <div class="item"><a class="case-link" href="#">Sam Smith</a><span class="pill U">U</span></div>
+          <div class="item"><a class="case-link" href="#">Ottis Redding</a><span class="pill E">E</span></div>
+        </div>
+
+        <div class="card expiry-card">
+          <div class="card-title">Expiring Tomorrow</div>
+          <div class="item"><a class="case-link" href="#">Jack</a><span class="pill S">S</span></div>
+          <div class="item"><a class="case-link" href="#">Lucia Romero</a><span class="pill U">U</span></div>
+        </div>
+
+        <div class="card expiry-card">
+          <div class="card-title">Expiring in 2 Days</div>
+          <div class="item"><a class="case-link" href="#">Martha</a><span class="pill E">E</span></div>
+          <div class="item"><a class="case-link" href="#">Henry Cole</a><span class="pill S">S</span></div>
+        </div>
+
+        <div class="card expiry-card" style="border-color:#f5b5b5;">
+          <div class="card-title" style="color:var(--danger);">Expired (6)</div>
+          <div class="item"><div><a class="case-link" href="#">Frank</a><div class="meta">6 days expired</div></div><span class="pill S">S</span></div>
+          <div class="item"><div><a class="case-link" href="#">David</a><div class="meta">13 days expired</div></div><span class="pill U">U</span></div>
+          <div class="item"><div><a class="case-link" href="#">Joyce Wren</a><div class="meta">3 days expired</div></div><span class="pill E">E</span></div>
+          <div class="item"><div><a class="case-link" href="#">Bernie Tate</a><div class="meta">9 days expired</div></div><span class="pill E">E</span></div>
+          <div class="item"><div><a class="case-link" href="#">Pearl Adams</a><div class="meta">2 days expired</div></div><span class="pill S">S</span></div>
+          <div class="item"><div><a class="case-link" href="#">Otis Marks</a><div class="meta">17 days expired</div></div><span class="pill S">S</span></div>
+        </div>
+      </div>
+
+      <div class="section-title">All Active Cases <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:11px;margin-left:6px;">— all 11 in-progress, sorted by days until expiry</span></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:50%;">Name</th>
+              <th>Priority</th>
+              <th>Expires</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><a class="case-link" href="#">Sam Smith</a></td><td><span class="pill U">URGENT</span></td><td>Today</td></tr>
+            <tr><td><a class="case-link" href="#">Ottis Redding</a></td><td><span class="pill E">EMERGENCY</span></td><td>Today</td></tr>
+            <tr><td><a class="case-link" href="#">Jack</a></td><td><span class="pill S">STANDARD</span></td><td>Tomorrow</td></tr>
+            <tr><td><a class="case-link" href="#">Lucia Romero</a></td><td><span class="pill U">URGENT</span></td><td>Tomorrow</td></tr>
+            <tr><td><a class="case-link" href="#">Martha</a></td><td><span class="pill E">EMERGENCY</span></td><td>2 days</td></tr>
+            <tr><td><a class="case-link" href="#">Henry Cole</a></td><td><span class="pill S">STANDARD</span></td><td>2 days</td></tr>
+            <tr><td><a class="case-link" href="#">Greg Sullivan</a></td><td><span class="pill U">URGENT</span></td><td>3 days</td></tr>
+            <tr><td><a class="case-link" href="#">Vera Knox</a></td><td><span class="pill E">EMERGENCY</span></td><td>4 days</td></tr>
+            <tr><td><a class="case-link" href="#">Theo Banks</a></td><td><span class="pill S">STANDARD</span></td><td>5 days</td></tr>
+            <tr><td><a class="case-link" href="#">Edna Reyes</a></td><td><span class="pill E">EMERGENCY</span></td><td>5 days</td></tr>
+            <tr><td><a class="case-link" href="#">Owen Park</a></td><td><span class="pill U">URGENT</span></td><td>6 days</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">Appointments Today</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th style="width:50%;">Name</th><th>Priority</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><a class="case-link" href="#">Sam Smith</a></td><td><span class="pill U">URGENT</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">Past Appointments</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th style="width:40%;">Name</th><th>Priority</th><th>Visit Date</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><a class="case-link" href="#">Sam Smith</a></td><td><span class="pill U">URGENT</span></td><td>Apr 28, 2026</td></tr>
+            <tr><td><a class="case-link" href="#">Jack</a></td><td><span class="pill S">STANDARD</span></td><td>Apr 25, 2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================== CAS SUPERVISOR DASHBOARD ============================== -->
+    <section class="dashboard" id="cas-supervisor">
+
+      <div class="role-header">
+        <h2>CAS Supervisor Dashboard</h2>
+        <p>Supervisors: Osei Sarhene, Tiffiani Clark. Assign cases, review staff determinations, and monitor team performance across Marlo Payne, Mariela Mondragon, and Demetrious Thomas.</p>
+      </div>
+
+      <div class="section-title">To Be Assigned Cases</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th style="width:60%;">Name</th><th>Priority</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a class="case-link" href="#">Rocky</a></td>
+              <td><span class="pill U">URGENT</span></td>
+            </tr>
+            <tr>
+              <td><a class="case-link" href="#">Ali</a></td>
+              <td><span class="pill E">EMERGENCY</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">Determinations to Review per Case Worker</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:45%;">Name</th>
+              <th>Priority</th>
+              <th>Case Worker</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a class="case-link" href="#">Rocky</a></td>
+              <td><span class="pill U">URGENT</span></td>
+              <td>Marlo Payne</td>
+            </tr>
+            <tr>
+              <td><a class="case-link" href="#">Ali</a></td>
+              <td><span class="pill E">EMERGENCY</span></td>
+              <td>Marlo Payne</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">3 Visits — No Contact (To Review)</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:45%;">Name</th>
+              <th>Priority</th>
+              <th>Case Worker</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a class="case-link" href="#">Mary</a></td>
+              <td><span class="pill U">URGENT</span></td>
+              <td>Mariela Mondragon</td>
+            </tr>
+            <tr>
+              <td><a class="case-link" href="#">Nadia</a></td>
+              <td><span class="pill E">EMERGENCY</span></td>
+              <td>Mariela Mondragon</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">Cases per Case Worker <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:11px;margin-left:6px;">— In Progress + Expired columns sum to DFSS aggregate (28 + 17, plus 2 unassigned)</span></div>
+      <div class="table-wrap">
+        <div class="worker-grid-header">
+          <div>Case Worker</div>
+          <div>Total Assigned</div>
+          <div>In Progress</div>
+          <div>Expired</div>
+          <div>Completed</div>
+        </div>
+
+        <div class="worker-block">
+          <div class="wcell worker-name">Marlo Payne</div>
+          <div class="wcell">
+            <div class="total">25</div>
+            <div class="breakdown">
+              <div><span class="k">Emergency</span> 9</div>
+              <div><span class="k">Urgent</span> 7</div>
+              <div><span class="k">Standard</span> 9</div>
+            </div>
+          </div>
+          <div class="wcell">
+            <div class="total">11</div>
+            <div class="breakdown">
+              <div><span class="k">Emergency</span> 4</div>
+              <div><span class="k">Urgent</span> 4</div>
+              <div><span class="k">Standard</span> 3</div>
+            </div>
+          </div>
+          <div class="wcell">
+            <div class="total" style="color:var(--danger);">6</div>
+            <div class="breakdown">
+              <div><span class="k">Emergency</span> 2</div>
+              <div><span class="k">Urgent</span> 1</div>
+              <div><span class="k">Standard</span> 3</div>
+            </div>
+          </div>
+          <div class="wcell">
+            <div class="total" style="color:var(--standard);">8</div>
+            <div class="breakdown">
+              <div><span class="k">Emergency</span> 3</div>
+              <div><span class="k">Urgent</span> 2</div>
+              <div><span class="k">Standard</span> 3</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="worker-block">
+          <div class="wcell worker-name">Mariela Mondragon</div>
+          <div class="wcell">
+            <div class="total">31</div>
+            <div class="breakdown">
+              <div><span class="k">Emergency</span> 11</div>
+              <div><span class="k">Urgent</span> 8</div>
+              <div><span class="k">Standard</span> 12</div>
+            </div>
+          </div>
+          <div class="wcell">
+            <div class="total">11</div>
+            <div class="breakdown">
+              <div><span class="k">Emergency</span> 5</div>
+              <div><span class="k">Urgent</span> 4</div>
+              <div><span class="k">Standard</span> 2</div>
+            </div>
+          </div>
+          <div class="wcell">
+            <div class="total" style="color:var(--danger);">8</div>
+            <div class="breakdown">
+              <div><span class="k">Emergency</span> 2</div>
+              <div><span class="k">Urgent</span> 1</div>
+              <div><span class="k">Standard</span> 5</div>
+            </div>
+          </div>
+          <div class="wcell">
+            <div class="total" style="color:var(--standard);">12</div>
+            <div class="breakdown">
+              <div><span class="k">Emergency</span> 4</div>
+              <div><span class="k">Urgent</span> 3</div>
+              <div><span class="k">Standard</span> 5</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="worker-block">
+          <div class="wcell worker-name">Demetrious Thomas</div>
+          <div class="wcell">
+            <div class="total">14</div>
+            <div class="breakdown">
+              <div><span class="k">Emergency</span> 5</div>
+              <div><span class="k">Urgent</span> 5</div>
+              <div><span class="k">Standard</span> 4</div>
+            </div>
+          </div>
+          <div class="wcell">
+            <div class="total">6</div>
+            <div class="breakdown">
+              <div><span class="k">Emergency</span> 3</div>
+              <div><span class="k">Urgent</span> 2</div>
+              <div><span class="k">Standard</span> 1</div>
+            </div>
+          </div>
+          <div class="wcell">
+            <div class="total" style="color:var(--danger);">3</div>
+            <div class="breakdown">
+              <div><span class="k">Emergency</span> 1</div>
+              <div><span class="k">Urgent</span> 1</div>
+              <div><span class="k">Standard</span> 1</div>
+            </div>
+          </div>
+          <div class="wcell">
+            <div class="total" style="color:var(--standard);">5</div>
+            <div class="breakdown">
+              <div><span class="k">Emergency</span> 1</div>
+              <div><span class="k">Urgent</span> 2</div>
+              <div><span class="k">Standard</span> 2</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="worker-block" style="background:#fafbfc;">
+          <div class="wcell worker-name" style="color:var(--text);">Totals</div>
+          <div class="wcell">
+            <div class="total">70</div>
+            <div class="breakdown">
+              <div><span class="k">Emergency</span> 25</div>
+              <div><span class="k">Urgent</span> 20</div>
+              <div><span class="k">Standard</span> 25</div>
+            </div>
+          </div>
+          <div class="wcell">
+            <div class="total">28</div>
+            <div class="breakdown">
+              <div><span class="k">Emergency</span> 12</div>
+              <div><span class="k">Urgent</span> 10</div>
+              <div><span class="k">Standard</span> 6</div>
+            </div>
+          </div>
+          <div class="wcell">
+            <div class="total" style="color:var(--danger);">17</div>
+            <div class="breakdown">
+              <div><span class="k">Emergency</span> 5</div>
+              <div><span class="k">Urgent</span> 3</div>
+              <div><span class="k">Standard</span> 9</div>
+            </div>
+          </div>
+          <div class="wcell">
+            <div class="total" style="color:var(--standard);">25</div>
+            <div class="breakdown">
+              <div><span class="k">Emergency</span> 8</div>
+              <div><span class="k">Urgent</span> 7</div>
+              <div><span class="k">Standard</span> 10</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== ICAS STAFF DASHBOARD ============================== -->
+    <section class="dashboard" id="icas-staff">
+
+      <div class="role-header">
+        <h2>ICAS Staff Dashboard</h2>
+        <p>Monitor your active intensive-case clients, last visits, and care plan status.</p>
+      </div>
+
+      <div class="section-title">Active Clients</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:24%;">Active Client</th>
+              <th>Priority</th>
+              <th>Year Started</th>
+              <th>Last Visited</th>
+              <th>Last ECM Update</th>
+              <th>Care Plan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a class="case-link" href="#">Eleanor Briggs</a></td>
+              <td><span class="pill E">EMERGENCY</span></td>
+              <td>2024</td>
+              <td>Apr 28, 2026</td>
+              <td>Apr 29, 2026</td>
+              <td><span class="pill S">COMPLETED</span></td>
+            </tr>
+            <tr>
+              <td><a class="case-link" href="#">Walter Hayes</a></td>
+              <td><span class="pill U">URGENT</span></td>
+              <td>2026</td>
+              <td>Apr 22, 2026</td>
+              <td>Apr 22, 2026</td>
+              <td><span class="pill U">NOT COMPLETED</span></td>
+            </tr>
+            <tr>
+              <td><a class="case-link" href="#">Doris Mitchell</a></td>
+              <td><span class="pill S">STANDARD</span></td>
+              <td>2025</td>
+              <td>Apr 19, 2026</td>
+              <td>Apr 24, 2026</td>
+              <td><span class="pill S">COMPLETED</span></td>
+            </tr>
+            <tr>
+              <td><a class="case-link" href="#">Harold Pinkett</a></td>
+              <td><span class="pill U">URGENT</span></td>
+              <td>2023</td>
+              <td>Apr 15, 2026</td>
+              <td>Apr 15, 2026</td>
+              <td><span class="pill U">NOT COMPLETED</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title">Caseload Summary</div>
+      <div class="grid grid-4">
+        <div class="card">
+          <div class="card-title">Total Cases Assigned</div>
+          <div class="stat-big">18</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Active</div>
+          <div class="stat-big" style="color:var(--accent);">11</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Closed</div>
+          <div class="stat-big" style="color:var(--text-muted);">5</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Completed — Pending DFSS Review</div>
+          <div class="stat-big" style="color:var(--warn);">2</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      <strong>Note:</strong> This is a visual mockup with placeholder data. Counts, names, and regions are illustrative only —
+      next pass will re-skin to match the ECM look-and-feel and bind to live ECM queries.
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // Role / dashboard switcher
+  const navItems = document.querySelectorAll('.nav-item');
+  const dashboards = document.querySelectorAll('.dashboard');
+  const titleEl = document.getElementById('pageTitle');
+  const subEl = document.getElementById('pageSub');
+
+  const META = {
+    'dfss': {
+      title: 'DFSS Dashboard',
+      sub: 'Department of Family and Support Services — Senior Services intake oversight'
+    },
+    'cas-staff': {
+      title: 'CAS Staff Dashboard',
+      sub: 'Case Advocacy Support — your daily worklist and visit timeline'
+    },
+    'cas-supervisor': {
+      title: 'CAS Supervisor Dashboard',
+      sub: 'Case assignment, determination review, and team performance'
+    },
+    'icas-staff': {
+      title: 'ICAS Staff Dashboard',
+      sub: 'Intensive Case Advocacy Support — your active clients and care plans'
+    }
+  };
+
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = item.dataset.target;
+      navItems.forEach(n => n.classList.remove('active'));
+      dashboards.forEach(d => d.classList.remove('active'));
+      item.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      if (META[target]) {
+        titleEl.textContent = META[target].title;
+        subEl.textContent = META[target].sub;
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
