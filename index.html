@@ -86,11 +86,12 @@
 
   /* Cards & sections */
   .section-title {
-    font-size: 15px; text-transform: uppercase; letter-spacing: 0.6px;
+    font-size: 14px; text-transform: uppercase; letter-spacing: 0.6px;
     color: var(--primary); font-weight: 800; margin: 24px 0 10px 0;
     background: var(--primary-soft);
     border-left: 4px solid var(--primary);
-    padding: 9px 12px; border-radius: 3px;
+    padding: 0 12px; border-radius: 3px;
+    height: 48px; display: flex; align-items: center;
   }
   .section-title .st-sub {
     font-weight: 400; text-transform: none; letter-spacing: 0;
@@ -124,6 +125,12 @@
 
   /* Fixed-height, scrollable list boxes so every box lines up */
   .table-wrap { height: 300px; overflow-y: auto; overflow-x: hidden; }
+  /* Locked box heights. Left column 532 = 300 + 82 (title block) + 150 on the right. */
+  .table-wrap.box-tall  { height: 532px; }
+  .table-wrap.box-2of3  { height: 300px; }
+  .table-wrap.box-1of3  { height: 150px; }
+  .table-wrap.box-pair  { height: 380px; }
+  .table-wrap.box-short { height: 200px; }
   .table-wrap thead th { position: sticky; top: 0; z-index: 3; box-shadow: inset 0 -1px 0 var(--border); }
   .tile-compact { height: 112px; }
   .tile-compact .card-title { line-height: 1.35; }
@@ -398,28 +405,26 @@
 
       <div class="section-title">My Caseload<span class="info">i<span class="tip">Everything currently on your plate, split into two stages: cases where the visit still needs to happen, and cases where the visit is done but the paperwork is not.</span></span></div>
 
-      <!-- Three summary tiles -->
       <div class="grid grid-3" style="margin-bottom:18px;">
         <div class="card tile-compact">
           <div class="card-title">Cases: Total Assigned<span class="info">i<span class="tip">All 311 cases assigned to you where the visit has not happened yet — either you have not scheduled an appointment, or the appointment is still coming up.</span></span></div>
-          <div class="stat-big" style="color:var(--accent);">11</div>
+          <div class="stat-big" style="color:var(--accent);">18</div>
         </div>
         <div class="card tile-compact">
           <div class="card-title">Cases: Overdue<span class="info">i<span class="tip">Cases from your assigned list that have passed the required visit timeframe for their priority code. They are still active and still need a visit — going overdue does not close or remove them.</span></span></div>
-          <div class="stat-big" style="color:var(--danger);">6</div>
+          <div class="stat-big" style="color:var(--danger);">9</div>
         </div>
         <div class="card tile-compact" style="border-color:#f0b9b9;">
           <div class="card-title" style="color:var(--danger);">Cases: Rejected <span style="font-weight:400;text-transform:none;letter-spacing:0;">(Revise ASAP)</span><span class="info r">i<span class="tip">Cases you already submitted that were sent back by your CAS supervisor or by DFSS. The reviewer left a note explaining what needs to change. Fix it and resubmit as soon as you can.</span></span></div>
-          <div class="stat-big" style="color:var(--danger);">2</div>
+          <div class="stat-big" style="color:var(--danger);">4</div>
         </div>
       </div>
 
-      <!-- Side-by-side: Cases Assigned (left) / Upcoming Appointments (right) -->
       <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 16px; align-items: start;">
 
         <div>
           <div class="section-title" style="margin-top:0;">Cases Assigned: All Cases<span class="info">i<span class="tip">The full list of cases still waiting on a visit, sorted by time remaining with the most urgent first. Red means overdue or due within a day, amber means due within two days. Click a name to open that client’s 311 review page.</span></span></div>
-          <div class="table-wrap">
+          <div class="table-wrap box-tall">
             <table>
               <thead>
                 <tr>
@@ -434,13 +439,20 @@
                 <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">David Nunez</a></td><td>3348 W Palmer St</td><td style="color:var(--danger);font-weight:700;">13d overdue</td></tr>
                 <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Bernie Tate</a></td><td>6410 S Maryland Ave</td><td style="color:var(--danger);font-weight:700;">9d overdue</td></tr>
                 <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Frank Delgado</a></td><td>2915 N Kimball Ave, Apt 3</td><td style="color:var(--danger);font-weight:700;">6d overdue</td></tr>
+                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Carmen Ruiz</a></td><td>5142 W Wrightwood Ave</td><td style="color:var(--danger);font-weight:700;">5d overdue</td></tr>
                 <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Joyce Wren</a></td><td>1044 W 59th St</td><td style="color:var(--danger);font-weight:700;">3d overdue</td></tr>
                 <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Pearl Adams</a></td><td>4523 S Drexel Blvd</td><td style="color:var(--danger);font-weight:700;">2d overdue</td></tr>
-                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Ottis Redding</a></td><td>5326 S Ashland Ave</td><td style="color:var(--danger);font-weight:700;">8h 35m</td></tr>
+                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Leon Whitfield</a></td><td>8830 S Escanaba Ave</td><td style="color:var(--danger);font-weight:700;">2d overdue</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Ida Brennan</a></td><td>3705 N Sheffield Ave, Apt 2</td><td style="color:var(--danger);font-weight:700;">1d overdue</td></tr>
                 <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Sam Smith</a></td><td>4718 N Racine Ave</td><td style="color:var(--danger);font-weight:700;">4h 12m</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Ottis Redding</a></td><td>5326 S Ashland Ave</td><td style="color:var(--danger);font-weight:700;">8h 35m</td></tr>
                 <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Jack Ellison</a></td><td>6208 S Elizabeth St</td><td style="color:var(--warn);font-weight:700;">1d 6h</td></tr>
                 <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Lucia Romero</a></td><td>2140 W 21st Pl</td><td style="color:var(--warn);font-weight:700;">1d 14h</td></tr>
                 <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Martha Quinn</a></td><td>8127 S Muskegon Ave</td><td style="color:var(--standard);font-weight:700;">2d 3h</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Henry Cole</a></td><td>1466 W Balmoral Ave</td><td style="color:var(--standard);font-weight:700;">2d 18h</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Edna Reyes</a></td><td>3915 W Diversey Ave</td><td style="color:var(--standard);font-weight:700;">3d 9h</td></tr>
+                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Owen Park</a></td><td>1132 N Hoyne Ave, Apt 2R</td><td style="color:var(--standard);font-weight:700;">4d 2h</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Vera Knox</a></td><td>2251 W Belmont Ave</td><td style="color:var(--standard);font-weight:700;">6d 11h</td></tr>
               </tbody>
             </table>
           </div>
@@ -448,7 +460,7 @@
 
         <div>
           <div class="section-title" style="margin-top:0;">Cases in Process: Upcoming Appointments<span class="info r">i<span class="tip">Cases where you have already booked the visit. Shows every scheduled appointment going forward, not just this week. Street addresses are listed so you can group visits by neighborhood. Click a name to open the client’s application page.</span></span></div>
-          <div class="table-wrap">
+          <div class="table-wrap box-2of3">
             <table>
               <thead>
                 <tr>
@@ -462,11 +474,37 @@
               <tbody>
                 <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Sam Smith</a></td><td>4718 N Racine Ave</td><td>Aug 20</td><td>Today</td></tr>
                 <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Ottis Redding</a></td><td>5326 S Ashland Ave</td><td>Aug 20</td><td>Today</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Jack Ellison</a></td><td>6208 S Elizabeth St</td><td>Aug 21</td><td>Friday</td></tr>
                 <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Lucia Romero</a></td><td>2140 W 21st Pl</td><td>Aug 21</td><td>Friday</td></tr>
-                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Jack Ellison</a></td><td>6208 S Elizabeth St</td><td>Aug 24</td><td>Monday</td></tr>
-                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Edna Reyes</a></td><td>3915 W Diversey Ave</td><td>Aug 26</td><td>Wednesday</td></tr>
-                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Owen Park</a></td><td>1132 N Hoyne Ave, Apt 2R</td><td>Aug 28</td><td>Friday</td></tr>
-                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Vera Knox</a></td><td>2251 W Belmont Ave</td><td>Sep 2</td><td>Wednesday</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Martha Quinn</a></td><td>8127 S Muskegon Ave</td><td>Aug 22</td><td>Saturday</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Henry Cole</a></td><td>1466 W Balmoral Ave</td><td>Aug 24</td><td>Monday</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Edna Reyes</a></td><td>3915 W Diversey Ave</td><td>Aug 25</td><td>Tuesday</td></tr>
+                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Owen Park</a></td><td>1132 N Hoyne Ave, Apt 2R</td><td>Aug 26</td><td>Wednesday</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Vera Knox</a></td><td>2251 W Belmont Ave</td><td>Aug 27</td><td>Thursday</td></tr>
+                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Ida Brennan</a></td><td>3705 N Sheffield Ave, Apt 2</td><td>Aug 28</td><td>Friday</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Carmen Ruiz</a></td><td>5142 W Wrightwood Ave</td><td>Sep 1</td><td>Monday</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Leon Whitfield</a></td><td>8830 S Escanaba Ave</td><td>Sep 2</td><td>Tuesday</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="section-title">Cases: Rejected<span class="info r">i<span class="tip">The cases counted in the Cases: Rejected tile at the top. Each was sent back by your CAS supervisor or by DFSS and needs to be corrected and resubmitted.</span></span></div>
+          <div class="table-wrap box-1of3">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:44px;">Pri</th>
+                  <th style="width:24%;">Name</th>
+                  <th>Street Address</th>
+                  <th style="width:14%;">Rejected</th>
+                  <th style="width:16%;">Rejected By</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background:#fdecea;"><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Greg Sullivan</a></td><td>8044 S Drexel Ave</td><td>Aug 18</td><td>DFSS</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Nadia Feld</a></td><td>5610 N Kenmore Ave, Apt 1S</td><td>Aug 17</td><td>Supervisor</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Marcus Bell</a></td><td>7211 S Paxton Ave</td><td>Aug 15</td><td>DFSS</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Rita Salas</a></td><td>2634 W Cortez St</td><td>Aug 12</td><td>Supervisor</td></tr>
               </tbody>
             </table>
           </div>
@@ -474,53 +512,31 @@
 
       </div>
 
-      <!-- Cases: Rejected — standalone -->
-      <div class="section-title">Cases: Rejected<span class="info">i<span class="tip">The cases counted in the Cases: Rejected tile at the top. Each was sent back by your CAS supervisor or by DFSS and needs to be corrected and resubmitted.</span></span></div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th style="width:44px;">Pri</th>
-              <th style="width:20%;">Name</th>
-              <th>Street Address</th>
-              <th style="width:14%;">Rejected</th>
-              <th style="width:16%;">Rejected By</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="background:#fdecea;"><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Greg Sullivan</a></td><td>8044 S Drexel Ave</td><td>Aug 18</td><td>DFSS</td></tr>
-            <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Nadia Feld</a></td><td>5610 N Kenmore Ave, Apt 1S</td><td>Aug 17</td><td>Supervisor</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Past appointments tiles -->
       <div class="section-title">Cases in Process: Past Appointments<span class="info">i<span class="tip">The visit date has already passed on these cases. They are waiting on you to record what happened — the assessment, the recommendation, or the final submit.</span></span></div>
       <div class="grid grid-4" style="margin-bottom:18px;">
         <div class="card tile-compact">
           <div class="card-title">Past Appointments: Pending Recommendation / Submission<span class="info">i<span class="tip">Cases where the visit date has passed but no recommendation has reached your supervisor yet. Covers both situations: you have not entered a recommendation, or you entered one but never clicked Submit.</span></span></div>
-          <div class="stat-big" style="color:var(--accent);">7</div>
+          <div class="stat-big" style="color:var(--accent);">14</div>
         </div>
         <div class="card tile-compact">
           <div class="card-title">2+ Days Open<span class="info">i<span class="tip">How many of those pending cases have been open between 2 and 13 days, counted from the date the case was opened.</span></span></div>
-          <div class="stat-big" style="color:var(--warn);">2</div>
+          <div class="stat-big" style="color:var(--warn);">4</div>
         </div>
         <div class="card tile-compact">
           <div class="card-title">14+ Days Open<span class="info">i<span class="tip">How many of those pending cases have been open between 14 and 29 days.</span></span></div>
-          <div class="stat-big" style="color:#d97706;">1</div>
+          <div class="stat-big" style="color:#d97706;">3</div>
         </div>
         <div class="card tile-compact">
           <div class="card-title">30+ Days Open<span class="info r">i<span class="tip">How many of those pending cases have been open 30 days or longer. Clear these first. Cases open less than 2 days are not counted in any of these three tiles.</span></span></div>
-          <div class="stat-big" style="color:var(--danger);">1</div>
+          <div class="stat-big" style="color:var(--danger);">2</div>
         </div>
       </div>
 
-      <!-- Side-by-side: Pending Recommendation / Incomplete -->
       <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 16px; align-items: start;">
 
         <div>
           <div class="section-title" style="margin-top:0;">Past Appointments: Pending Recommendation / Submission (All)<span class="info">i<span class="tip">The full list behind the tiles above. “Case Opened” is the date the application was created, which happens as soon as the first appointment is booked.</span></span></div>
-          <div class="table-wrap">
+          <div class="table-wrap box-pair">
             <table>
               <thead>
                 <tr>
@@ -532,12 +548,19 @@
               </thead>
               <tbody>
                 <tr style="background:#f5b5b5;"><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Marcus Riley</a></td><td>Jul 12</td><td style="color:var(--danger);font-weight:700;">39</td></tr>
+                <tr style="background:#f5b5b5;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Opal Vance</a></td><td>Jul 19</td><td style="color:var(--danger);font-weight:700;">32</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Cedric Moss</a></td><td>Aug 3</td><td style="color:#d97706;font-weight:700;">17</td></tr>
                 <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Beverly Tate</a></td><td>Aug 4</td><td style="color:#d97706;font-weight:700;">16</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Lorna Pace</a></td><td>Aug 5</td><td style="color:#d97706;font-weight:700;">15</td></tr>
                 <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Donna Lin</a></td><td>Aug 13</td><td style="color:var(--warn);font-weight:700;">7</td></tr>
                 <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Walter Cohn</a></td><td>Aug 15</td><td style="color:var(--warn);font-weight:700;">5</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Trina Fox</a></td><td>Aug 16</td><td style="color:var(--warn);font-weight:700;">4</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Hugo Mena</a></td><td>Aug 17</td><td style="color:var(--warn);font-weight:700;">3</td></tr>
                 <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Felipe Cruz</a></td><td>Aug 19</td><td>1</td></tr>
                 <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Aiyana Brooks</a></td><td>Aug 19</td><td>1</td></tr>
+                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Nina Colt</a></td><td>Aug 19</td><td>1</td></tr>
                 <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Roy Whitaker</a></td><td>Aug 20</td><td>0</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Sal Ferraro</a></td><td>Aug 20</td><td>0</td></tr>
               </tbody>
             </table>
           </div>
@@ -545,7 +568,7 @@
 
         <div>
           <div class="section-title" style="margin-top:0;">Past Appointments: Incomplete<span class="info r">i<span class="tip">Visits where the appointment date has passed and nothing has been entered at all — no outcome, no assessment. “Days Past Due” counts from the visit date.</span></span></div>
-          <div class="table-wrap">
+          <div class="table-wrap box-pair">
             <table>
               <thead>
                 <tr>
@@ -556,8 +579,16 @@
                 </tr>
               </thead>
               <tbody>
+                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Harriet Lowe</a></td><td>Aug 11</td><td style="color:var(--danger);font-weight:700;">9</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Dennis Ruiz</a></td><td>Aug 12</td><td style="color:var(--danger);font-weight:700;">8</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Mabel Ortiz</a></td><td>Aug 13</td><td style="color:var(--warn);font-weight:700;">7</td></tr>
                 <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Theo Banks</a></td><td>Aug 14</td><td style="color:var(--warn);font-weight:700;">6</td></tr>
-                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Henry Cole</a></td><td>Aug 11</td><td style="color:var(--warn);font-weight:700;">9</td></tr>
+                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Clyde Hobbs</a></td><td>Aug 15</td><td style="color:var(--warn);font-weight:700;">5</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Rosalind Pike</a></td><td>Aug 16</td><td style="color:var(--warn);font-weight:700;">4</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Emmett Doyle</a></td><td>Aug 17</td><td>3</td></tr>
+                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Gwen Alder</a></td><td>Aug 18</td><td>2</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Norman Beck</a></td><td>Aug 18</td><td>2</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Trudy Vance</a></td><td>Aug 19</td><td>1</td></tr>
               </tbody>
             </table>
           </div>
@@ -590,15 +621,15 @@
       <div class="grid grid-4" style="margin-bottom:18px;">
         <div class="card tile-compact">
           <div class="card-title">Cases: Total Assigned<span class="info">i<span class="tip">Every 311 case currently assigned across the team where the visit has not happened yet.</span></span></div>
-          <div class="stat-big" style="color:var(--accent);">31</div>
+          <div class="stat-big" style="color:var(--accent);">45</div>
         </div>
         <div class="card tile-compact">
           <div class="card-title">Cases: Overdue<span class="info">i<span class="tip">Team cases that have passed the required visit timeframe for their priority code. They are still active and still need a visit.</span></span></div>
-          <div class="stat-big" style="color:var(--danger);">14</div>
+          <div class="stat-big" style="color:var(--danger);">21</div>
         </div>
         <div class="card tile-compact">
           <div class="card-title">Cases: Pending Recommendation / Submission<span class="info">i<span class="tip">Team cases where the visit has happened but no recommendation has been submitted yet — either it was never entered, or it was entered and never submitted.</span></span></div>
-          <div class="stat-big" style="color:var(--warn);">22</div>
+          <div class="stat-big" style="color:var(--warn);">34</div>
         </div>
         <div class="card tile-compact">
           <div class="card-title">Cases: Closed This Month<span class="info r">i<span class="tip">Cases the team has fully closed out and had approved by DFSS since the first of the month.</span></span></div>
@@ -607,7 +638,7 @@
       </div>
 
       <div class="section-title">Team Performance by Caseworker<span class="info">i<span class="tip">The same team numbers broken out per caseworker, so you can see who is carrying what and where work is piling up.</span></span></div>
-      <div class="table-wrap">
+      <div class="table-wrap box-short">
         <table>
           <thead>
             <tr>
@@ -620,10 +651,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td><a class="case-link" href="#">Marlo Payne</a></td><td>11</td><td style="color:var(--danger);font-weight:700;">6</td><td>7</td><td>3</td><td>2</td></tr>
-            <tr><td><a class="case-link" href="#">Mariela Mondragon</a></td><td>12</td><td style="color:var(--danger);font-weight:700;">5</td><td>9</td><td>3</td><td>3</td></tr>
-            <tr><td><a class="case-link" href="#">Demetrious Thomas</a></td><td>8</td><td style="color:var(--danger);font-weight:700;">3</td><td>6</td><td>2</td><td>1</td></tr>
-            <tr style="background:#f2f6fb;font-weight:700;"><td>Team Total</td><td>31</td><td>14</td><td>22</td><td>8</td><td>6</td></tr>
+            <tr><td><a class="case-link" href="#">Marlo Payne</a></td><td>18</td><td style="color:var(--danger);font-weight:700;">9</td><td>14</td><td>4</td><td>4</td></tr>
+            <tr><td><a class="case-link" href="#">Mariela Mondragon</a></td><td>15</td><td style="color:var(--danger);font-weight:700;">7</td><td>11</td><td>5</td><td>3</td></tr>
+            <tr><td><a class="case-link" href="#">Demetrious Thomas</a></td><td>12</td><td style="color:var(--danger);font-weight:700;">5</td><td>9</td><td>3</td><td>2</td></tr>
+            <tr style="background:#f2f6fb;font-weight:700;"><td>Team Total</td><td>45</td><td>21</td><td>34</td><td>12</td><td>9</td></tr>
           </tbody>
         </table>
       </div>
@@ -633,15 +664,15 @@
       <div class="grid grid-3" style="margin-bottom:18px;">
         <div class="card tile-compact">
           <div class="card-title">Cases: Unassigned<span class="info">i<span class="tip">Cases DFSS has referred to CAS that are not assigned to a caseworker yet. Assign these first — the visit clock is already running.</span></span></div>
-          <div class="stat-big" style="color:var(--warn);">5</div>
+          <div class="stat-big" style="color:var(--warn);">9</div>
         </div>
         <div class="card tile-compact">
           <div class="card-title">Cases: Pending My Review<span class="info">i<span class="tip">Recommendations your staff have submitted that are waiting on your review. Once you approve one it moves on to DFSS for final sign-off.</span></span></div>
-          <div class="stat-big" style="color:var(--accent);">8</div>
+          <div class="stat-big" style="color:var(--accent);">12</div>
         </div>
         <div class="card tile-compact" style="border-color:#f0b9b9;">
-          <div class="card-title" style="color:var(--danger);">Cases: Sent Back by DFSS<span class="info r">i<span class="tip">Everything DFSS has returned to CAS — 4 rejected determinations and 2 rejected closeouts. Today these only arrive by email, so this is the single place to see them all.</span></span></div>
-          <div class="stat-big" style="color:var(--danger);">6</div>
+          <div class="card-title" style="color:var(--danger);">Cases: Sent Back by DFSS<span class="info r">i<span class="tip">Everything DFSS has returned to CAS — 6 rejected determinations and 3 rejected closeouts. Today these only arrive by email, so this is the single place to see them all.</span></span></div>
+          <div class="stat-big" style="color:var(--danger);">9</div>
         </div>
       </div>
 
@@ -649,7 +680,7 @@
 
         <div>
           <div class="section-title" style="margin-top:0;">Cases: Unassigned<span class="info">i<span class="tip">Referrals from DFSS with no caseworker attached. “Days Waiting” counts from the date DFSS referred the case, not from when it was assigned.</span></span></div>
-          <div class="table-wrap">
+          <div class="table-wrap box-pair">
             <table>
               <thead>
                 <tr>
@@ -661,11 +692,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Dolores Pike</a></td><td>3327 S Morgan St</td><td>Aug 17</td><td style="color:var(--danger);font-weight:700;">3</td></tr>
-                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Herbert Nolan</a></td><td>6031 N Winthrop Ave</td><td>Aug 18</td><td style="color:var(--warn);font-weight:700;">2</td></tr>
-                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Alvin Cheng</a></td><td>7238 S Constance Ave</td><td>Aug 19</td><td style="color:var(--warn);font-weight:700;">1</td></tr>
-                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Marta Silva</a></td><td>1519 N Pulaski Rd, Apt 4</td><td>Aug 19</td><td style="color:var(--warn);font-weight:700;">1</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Dolores Pike</a></td><td>3327 S Morgan St</td><td>Aug 14</td><td style="color:var(--danger);font-weight:700;">6</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Alonzo Fry</a></td><td>5501 S Wood St</td><td>Aug 15</td><td style="color:var(--danger);font-weight:700;">5</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Bettye Cross</a></td><td>4029 W Adams St</td><td>Aug 16</td><td style="color:var(--danger);font-weight:700;">4</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Herbert Nolan</a></td><td>6031 N Winthrop Ave</td><td>Aug 17</td><td style="color:var(--warn);font-weight:700;">3</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Alvin Cheng</a></td><td>7238 S Constance Ave</td><td>Aug 18</td><td style="color:var(--warn);font-weight:700;">2</td></tr>
+                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Marta Silva</a></td><td>1519 N Pulaski Rd, Apt 4</td><td>Aug 18</td><td style="color:var(--warn);font-weight:700;">2</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Wanda Gill</a></td><td>8712 S Blackstone Ave</td><td>Aug 19</td><td>1</td></tr>
                 <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Rosa Delgado</a></td><td>4412 W Fullerton Ave</td><td>Aug 20</td><td>0</td></tr>
+                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Percy Nash</a></td><td>2907 N Milwaukee Ave</td><td>Aug 20</td><td>0</td></tr>
               </tbody>
             </table>
           </div>
@@ -673,7 +708,7 @@
 
         <div>
           <div class="section-title" style="margin-top:0;">Cases: Pending My Review<span class="info r">i<span class="tip">The same list as the CAS queue on the application page. Each row is a recommendation a caseworker submitted and is waiting on you to review before it reaches DFSS.</span></span></div>
-          <div class="table-wrap">
+          <div class="table-wrap box-pair">
             <table>
               <thead>
                 <tr>
@@ -685,14 +720,18 @@
                 </tr>
               </thead>
               <tbody>
-                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Gloria Estes</a></td><td>Marlo Payne</td><td>Close</td><td>Aug 15</td></tr>
-                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Wendell Pratt</a></td><td>Mariela Mondragon</td><td>Close</td><td>Aug 16</td></tr>
-                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Curtis Boyd</a></td><td>Marlo Payne</td><td>Refer to ICAS</td><td>Aug 17</td></tr>
-                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Ana Reyes</a></td><td>Demetrious Thomas</td><td>Close</td><td>Aug 17</td></tr>
-                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Loretta Day</a></td><td>Demetrious Thomas</td><td>Close</td><td>Aug 18</td></tr>
-                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Sylvia Marsh</a></td><td>Mariela Mondragon</td><td>Refer to ICAS</td><td>Aug 18</td></tr>
-                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Inez Powell</a></td><td>Mariela Mondragon</td><td>Refer to ICAS</td><td>Aug 19</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Gloria Estes</a></td><td>Marlo Payne</td><td>Close</td><td>Aug 14</td></tr>
+                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Wendell Pratt</a></td><td>Mariela Mondragon</td><td>Close</td><td>Aug 15</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Curtis Boyd</a></td><td>Marlo Payne</td><td>Refer to ICAS</td><td>Aug 15</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Ana Reyes</a></td><td>Demetrious Thomas</td><td>Close</td><td>Aug 16</td></tr>
+                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Faye Dunlap</a></td><td>Mariela Mondragon</td><td>Close</td><td>Aug 16</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Loretta Day</a></td><td>Demetrious Thomas</td><td>Close</td><td>Aug 17</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Sylvia Marsh</a></td><td>Mariela Mondragon</td><td>Refer to ICAS</td><td>Aug 17</td></tr>
+                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Hollis Grant</a></td><td>Marlo Payne</td><td>Close</td><td>Aug 18</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Inez Powell</a></td><td>Mariela Mondragon</td><td>Refer to ICAS</td><td>Aug 18</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Byron Lemons</a></td><td>Demetrious Thomas</td><td>Close</td><td>Aug 19</td></tr>
                 <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Garrett Hines</a></td><td>Marlo Payne</td><td>Close</td><td>Aug 19</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Verna Sloan</a></td><td>Mariela Mondragon</td><td>Refer to ICAS</td><td>Aug 20</td></tr>
               </tbody>
             </table>
           </div>
@@ -704,7 +743,7 @@
 
         <div>
           <div class="section-title">Sent Back by DFSS: Determinations<span class="info">i<span class="tip">Cases where a recommendation was submitted, you approved it, and DFSS rejected it. The case has to be corrected and resubmitted. This is the gap today — these only go out by email.</span></span></div>
-          <div class="table-wrap">
+          <div class="table-wrap box-pair">
             <table>
               <thead>
                 <tr>
@@ -717,9 +756,11 @@
               </thead>
               <tbody>
                 <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Simon Vale</a></td><td>Demetrious Thomas</td><td>Aug 15</td><td>Missing case notes</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Marcus Bell</a></td><td>Marlo Payne</td><td>Aug 15</td><td>Income section blank</td></tr>
                 <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Yolanda Cruz</a></td><td>Mariela Mondragon</td><td>Aug 16</td><td>Wrong recommendation type</td></tr>
                 <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Bernard Ott</a></td><td>Mariela Mondragon</td><td>Aug 18</td><td>Assessment incomplete</td></tr>
                 <tr style="background:#fdecea;"><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Greg Sullivan</a></td><td>Marlo Payne</td><td>Aug 18</td><td>Referrals not documented</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Della Frost</a></td><td>Marlo Payne</td><td>Aug 19</td><td>Household members missing</td></tr>
               </tbody>
             </table>
           </div>
@@ -727,7 +768,7 @@
 
         <div>
           <div class="section-title">Sent Back by DFSS: Closeouts<span class="info r">i<span class="tip">Cases closed on the 311 page before an appointment was ever made, which DFSS reviewed and returned. The closure was not accepted, so the case is active again.</span></span></div>
-          <div class="table-wrap">
+          <div class="table-wrap box-pair">
             <table>
               <thead>
                 <tr>
@@ -741,6 +782,7 @@
               <tbody>
                 <tr style="background:#fdecea;"><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Ruth Kimball</a></td><td>Mariela Mondragon</td><td>Aug 14</td><td>Visit attempts not logged</td></tr>
                 <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Nadia Feld</a></td><td>Marlo Payne</td><td>Aug 17</td><td>Closure not justified</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Ellis Warner</a></td><td>Demetrious Thomas</td><td>Aug 19</td><td>No refusal documented</td></tr>
               </tbody>
             </table>
           </div>
