@@ -100,6 +100,27 @@
   .tile-compact { padding: 12px 14px; min-height: 0; }
   .tile-compact .card-title { margin-bottom: 6px; font-size: 11px; }
   .tile-compact .stat-big { font-size: 26px; }
+
+  /* Info icon + hover tooltip */
+  .info {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 15px; height: 15px; border-radius: 50%; flex: none;
+    background: #90a8c2; color: #fff;
+    font: 700 10px/1 Georgia, 'Times New Roman', serif; font-style: italic;
+    text-transform: none; letter-spacing: 0;
+    margin-left: 6px; cursor: help; position: relative; vertical-align: middle;
+  }
+  .info:hover { background: var(--primary); }
+  .info .tip {
+    display: none; position: absolute; top: 21px; left: -6px; z-index: 60;
+    width: 290px; background: #1f2937; color: #fff;
+    font: 400 12px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-style: normal; text-transform: none; letter-spacing: 0; text-align: left;
+    padding: 9px 11px; border-radius: 5px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.28);
+  }
+  .info.r .tip { left: auto; right: -6px; }
+  .info:hover .tip { display: block; }
   .grid { display: grid; gap: 14px; }
   .grid-2 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(3, 1fr); }
@@ -369,20 +390,20 @@
         <span style="color:var(--text-muted);font-size:11px;">Role-gated: CAS staff see only their own caseload by default.</span>
       </div>
 
-      <div class="section-title">My Caseload <span class="st-sub">— Marlo Payne</span></div>
+      <div class="section-title">My Caseload <span class="st-sub">— Marlo Payne</span><span class="info">i<span class="tip">Everything currently on your plate, split into two stages: cases where the visit still needs to happen, and cases where the visit is done but the paperwork is not.</span></span></div>
 
       <!-- Three summary tiles -->
       <div class="grid grid-3" style="margin-bottom:18px;">
         <div class="card tile-compact">
-          <div class="card-title">Cases: Total Assigned</div>
+          <div class="card-title">Cases: Total Assigned<span class="info">i<span class="tip">All 311 cases assigned to you where the visit has not happened yet — either you have not scheduled an appointment, or the appointment is still coming up.</span></span></div>
           <div class="stat-big" style="color:var(--accent);">11</div>
         </div>
         <div class="card tile-compact">
-          <div class="card-title">Cases: Overdue</div>
+          <div class="card-title">Cases: Overdue<span class="info">i<span class="tip">Cases from your assigned list that have passed the required visit timeframe for their priority code. They are still active and still need a visit — going overdue does not close or remove them.</span></span></div>
           <div class="stat-big" style="color:var(--danger);">6</div>
         </div>
         <div class="card tile-compact" style="border-color:#f0b9b9;">
-          <div class="card-title" style="color:var(--danger);">Cases: Rejected <span style="font-weight:400;text-transform:none;letter-spacing:0;">(Revise ASAP)</span></div>
+          <div class="card-title" style="color:var(--danger);">Cases: Rejected <span style="font-weight:400;text-transform:none;letter-spacing:0;">(Revise ASAP)</span><span class="info r">i<span class="tip">Cases you already submitted that were sent back by your CAS supervisor or by DFSS. The reviewer left a note explaining what needs to change. Fix it and resubmit as soon as you can.</span></span></div>
           <div class="stat-big" style="color:var(--danger);">2</div>
         </div>
       </div>
@@ -392,7 +413,7 @@
 
         <!-- LEFT: Cases Assigned: All Cases -->
         <div>
-          <div class="section-title" style="margin-top:0;">Cases Assigned: All Cases <span class="st-sub">— sorted by time remaining</span></div>
+          <div class="section-title" style="margin-top:0;">Cases Assigned: All Cases <span class="st-sub">— sorted by time remaining</span><span class="info">i<span class="tip">The full list of cases still waiting on a visit, most urgent first. Red means overdue or due within a day, amber means due within two days. Click a name to open that client’s 311 review page.</span></span></div>
           <div class="table-wrap">
             <table>
               <thead>
@@ -422,7 +443,7 @@
 
         <!-- RIGHT: Cases in Process + Rejected -->
         <div>
-          <div class="section-title" style="margin-top:0;">Cases in Process: Upcoming Appointments</div>
+          <div class="section-title" style="margin-top:0;">Cases in Process: Upcoming Appointments<span class="info r">i<span class="tip">Cases where you have already booked the visit. Shows every scheduled appointment going forward, not just this week. Street addresses are listed so you can group visits by neighborhood. Click a name to open the client’s application page.</span></span></div>
           <div class="table-wrap">
             <table>
               <thead>
@@ -446,7 +467,7 @@
             </table>
           </div>
 
-          <div class="section-title">Cases: Rejected <span class="st-sub">— revise and resubmit ASAP</span></div>
+          <div class="section-title">Cases: Rejected <span class="st-sub">— revise and resubmit ASAP</span><span class="info r">i<span class="tip">The cases counted in the Cases: Rejected tile at the top. Each was sent back by your supervisor or DFSS and needs to be corrected and resubmitted.</span></span></div>
           <div class="table-wrap">
             <table>
               <thead>
@@ -469,22 +490,22 @@
       </div>
 
       <!-- Past appointments tiles -->
-      <div class="section-title">Cases in Process: Past Appointments</div>
+      <div class="section-title">Cases in Process: Past Appointments<span class="info">i<span class="tip">The visit date has already passed on these cases. They are waiting on you to record what happened — the assessment, the recommendation, or the final submit.</span></span></div>
       <div class="grid grid-4" style="margin-bottom:18px;">
         <div class="card tile-compact">
-          <div class="card-title">Past Appointments: Pending Recommendation / Submission</div>
+          <div class="card-title">Past Appointments: Pending Recommendation / Submission<span class="info">i<span class="tip">Cases where the visit date has passed but no recommendation has reached your supervisor yet. Covers both situations: you have not entered a recommendation, or you entered one but never clicked Submit.</span></span></div>
           <div class="stat-big" style="color:var(--accent);">7</div>
         </div>
         <div class="card tile-compact">
-          <div class="card-title">2+ Days Open</div>
+          <div class="card-title">2+ Days Open<span class="info">i<span class="tip">How many of those pending cases have been open between 2 and 13 days, counted from the date the case was opened.</span></span></div>
           <div class="stat-big" style="color:var(--warn);">2</div>
         </div>
         <div class="card tile-compact">
-          <div class="card-title">14+ Days Open</div>
+          <div class="card-title">14+ Days Open<span class="info">i<span class="tip">How many of those pending cases have been open between 14 and 29 days.</span></span></div>
           <div class="stat-big" style="color:#d97706;">1</div>
         </div>
         <div class="card tile-compact">
-          <div class="card-title">30+ Days Open</div>
+          <div class="card-title">30+ Days Open<span class="info r">i<span class="tip">How many of those pending cases have been open 30 days or longer. Clear these first. Cases open less than 2 days are not counted in any of these three tiles.</span></span></div>
           <div class="stat-big" style="color:var(--danger);">1</div>
         </div>
       </div>
@@ -493,7 +514,7 @@
       <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 16px; align-items: start;">
 
         <div>
-          <div class="section-title" style="margin-top:0;">Past Appointments: Pending Recommendation / Submission (All)</div>
+          <div class="section-title" style="margin-top:0;">Past Appointments: Pending Recommendation / Submission (All)<span class="info">i<span class="tip">The full list behind the tiles above. “Case Opened” is the date the application was created, which happens as soon as the first appointment is booked.</span></span></div>
           <div class="table-wrap">
             <table>
               <thead>
@@ -518,7 +539,7 @@
         </div>
 
         <div>
-          <div class="section-title" style="margin-top:0;">Past Appointments: Incomplete</div>
+          <div class="section-title" style="margin-top:0;">Past Appointments: Incomplete<span class="info r">i<span class="tip">Visits where the appointment date has passed and nothing has been entered at all — no outcome, no assessment. “Days Past Due” counts from the visit date.</span></span></div>
           <div class="table-wrap">
             <table>
               <thead>
