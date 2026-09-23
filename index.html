@@ -328,6 +328,9 @@
   .table-wrap.box-pair table { min-width: 430px; }
   .table-wrap.box-pair th, .table-wrap.box-pair td { padding: 8px 9px; }
   .table-wrap.wide { overflow-x: auto; }
+  /* CAS staff: keep rows on one line and scroll the box, rather than wrapping
+     addresses and statuses onto two or three lines on a narrow screen */
+  #cas-staff td { white-space: nowrap; }
   .table-wrap.wide table { min-width: 800px; }
   .table-wrap.wide th, .table-wrap.wide td { padding: 8px 9px; }
   .table-wrap thead tr.grp th { top: 0; }
