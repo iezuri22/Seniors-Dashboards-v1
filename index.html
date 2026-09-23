@@ -276,6 +276,49 @@
     margin-top: 24px; padding: 12px 14px; border-radius: 4px;
     background: #fff8e1; border: 1px solid #f5d97a; font-size: 12px; color: #6b5300;
   }
+
+  /* ══════════════════════════════════════════════════════════════
+     Sep 10, 2026 — Senior Services feedback (Karen / Syed / Talha)
+     ══════════════════════════════════════════════════════════════ */
+
+  /* Karen: make the priority code wider and more prominent — an oval, not a circle */
+  .pill { padding: 3px 11px; min-width: 32px; text-align: center; }
+
+  /* Split performance tile — this month beside year to date */
+  .perf-split { display: flex; }
+  .perf-split > div { flex: 1; padding-right: 10px; }
+  .perf-split > div + div { border-left: 1px solid var(--border); padding-left: 12px; padding-right: 0; }
+  .perf-split .pl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 700; }
+  .perf-split .pv { font-size: 22px; font-weight: 700; line-height: 1.1; margin-top: 3px; }
+  .perf-split .pv .of { font-size: 13px; color: var(--text-muted); font-weight: 600; }
+  .perf-split .pd { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* Contractual measure / cumulative tiles */
+  .measure .mrow { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; font-size: 12px; }
+  .measure .mrow + .mrow { border-top: 1px dashed var(--border); }
+  .measure .mrow .ml { color: var(--text-muted); font-weight: 600; }
+  .measure .mrow .mv { font-size: 18px; font-weight: 700; }
+  .measure .mrow .mn { font-size: 11px; color: var(--text-muted); margin-left: 5px; font-weight: 400; }
+
+  /* Karen: flag the rows that have been sitting too long — "look here, look here" */
+  .flag {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 15px; height: 15px; border-radius: 50%;
+    background: var(--danger); color: #fff;
+    font-size: 10px; font-weight: 800; line-height: 1;
+    margin-right: 6px; vertical-align: middle;
+  }
+
+  /* Grouped (two-row) table headers */
+  thead tr.grp th {
+    text-align: center; background: #f2f6fb; color: var(--primary);
+    font-size: 10px; padding: 7px 12px; border-bottom: 1px solid var(--border);
+  }
+  thead tr.grp th.spacer { background: #fafbfc; }
+  th.gsep, td.gsep { border-left: 1px solid var(--border); }
+  .table-wrap thead tr.grp th { top: 0; }
+  /* only offset the column row when a group row actually sits above it */
+  .table-wrap thead tr.grp + tr.hdr th { top: 28px; }
 </style>
 </head>
 <body>
@@ -300,7 +343,7 @@
     <div class="topbar">
       <div>
         <h1 class="page-title" id="pageTitle">DFSS Dashboard</h1>
-        <div class="page-sub" id="pageSub">Department of Family and Support Services — Senior Services intake oversight</div>
+        <div class="page-sub" id="pageSub">Department of Family and Support Services — Senior Services intake and supervisor oversight</div>
       </div>
       <div class="user-chip">Mockup data · Demo only</div>
     </div>
@@ -310,7 +353,7 @@
 
       <div class="role-header">
         <h2>DFSS Dashboard</h2>
-        <p>Review pending determinations and monitor CAS performance across the 311 and application phases.</p>
+        <p>Review pending determinations and monitor CAS performance across the 311 and application phases, plus CAS supervisor turnaround.</p>
       </div>
 
       <div class="grid grid-3">
@@ -380,6 +423,52 @@
           <div class="stat-big" style="color:var(--warn);">4</div>
           <div class="stat-row" style="margin-top:8px;color:var(--text-muted);font-size:11px;">recommendations submitted · coming to DFSS next</div>
         </div>
+      </div>
+
+
+      <div class="section-title">CAS Supervisor Performance <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:11px;margin-left:6px;">— turnaround on the steps that sit with the supervisor · added per Sep 10 feedback</span><span class="info">i<span class="tip">The layered view: the supervisor dashboard reports on the team, and this reports on the supervisors. Average days to assign is measured from the moment DFSS refers the case; average days to review is measured from the moment a caseworker submits the recommendation. Both exclude weekends.</span></span></div>
+      <div class="table-wrap" style="height:auto;">
+        <table>
+          <thead>
+            <tr class="grp">
+              <th class="spacer"></th>
+              <th colspan="3">Avg Days to Assign, by Priority Code</th>
+              <th colspan="2" class="gsep">Avg Days to Review Recommendation</th>
+              <th colspan="3" class="gsep">Sitting in Queue Now</th>
+            </tr>
+            <tr class="hdr">
+              <th style="width:20%;">Supervisor</th>
+              <th>Emergency</th>
+              <th>Urgent</th>
+              <th>Standard</th>
+              <th class="gsep">This Month</th>
+              <th>Year to Date</th>
+              <th class="gsep">Unassigned</th>
+              <th>Pending Review</th>
+              <th>Oldest Item</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tiffany</td>
+              <td>0.4</td><td>0.6</td><td>1.2</td>
+              <td class="gsep" style="color:var(--danger);font-weight:700;">2.8</td><td style="color:var(--warn);font-weight:700;">2.1</td>
+              <td class="gsep">6</td><td>8</td><td style="color:var(--danger);font-weight:700;">6 days</td>
+            </tr>
+            <tr>
+              <td>Jose</td>
+              <td>0.3</td><td>0.5</td><td>0.9</td>
+              <td class="gsep">1.4</td><td>1.2</td>
+              <td class="gsep">3</td><td>4</td><td style="color:var(--warn);font-weight:700;">4 days</td>
+            </tr>
+            <tr style="background:#f2f6fb;font-weight:700;">
+              <td>All Supervisors</td>
+              <td>0.4</td><td>0.6</td><td>1.1</td>
+              <td class="gsep">2.3</td><td>1.7</td>
+              <td class="gsep">9</td><td>12</td><td>6 days</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
     </section>
@@ -603,7 +692,7 @@
 
       <div class="role-header">
         <h2>CAS Supervisor Dashboard</h2>
-        <p>How the team is performing, plus the three things that sit with you — assigning new referrals, reviewing submitted recommendations, and clearing anything DFSS sent back.</p>
+        <p>How the team is performing, plus the four things that sit with you — assigning new referrals, reviewing submitted recommendations, and clearing determinations and 311 closeouts that DFSS sent back.</p>
       </div>
 
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 14px 0;font-size:12px;">
@@ -616,85 +705,152 @@
         </select>
       </div>
 
-      <div class="section-title">Team Performance<span class="info">i<span class="tip">How your team is doing overall. These numbers cover every case assigned across Marlo, Mariela and Demetrious combined.</span></span></div>
+      <div class="section-title">Team Performance<span class="info">i<span class="tip">How your team is doing overall, across Marlo, Mariela and Demetrious combined. The first row is what is on the team&rsquo;s plate right now. The second row is cumulative for the calendar year and resets January 1.</span></span></div>
 
-      <div class="grid grid-4" style="margin-bottom:18px;">
+      <div class="grid grid-4" style="margin-bottom:14px;">
         <div class="card tile-compact">
-          <div class="card-title">Cases: Total Assigned<span class="info">i<span class="tip">Every 311 case currently assigned across the team where the visit has not happened yet.</span></span></div>
+          <div class="card-title">Cases: Currently Assigned<span class="info">i<span class="tip">Every 311 case sitting in the team&rsquo;s queue right now where the visit has not happened yet. This is a live count of the queue, not a total for the month or the year — the year-to-date totals are in the row below.</span></span></div>
           <div class="stat-big" style="color:var(--accent);">45</div>
         </div>
         <div class="card tile-compact">
-          <div class="card-title">Cases: Overdue<span class="info">i<span class="tip">Team cases that have passed the required visit timeframe for their priority code. They are still active and still need a visit.</span></span></div>
+          <div class="card-title">Cases: Exceeded Priority Timeframe<span class="info">i<span class="tip">Team cases that have passed the required visit timeframe for their priority code. They are still active and still need a visit. The clock excludes weekends; City of Chicago holidays will be excluded once the observed-holiday list is confirmed.</span></span></div>
           <div class="stat-big" style="color:var(--danger);">21</div>
         </div>
         <div class="card tile-compact">
-          <div class="card-title">Cases: Pending Recommendation / Submission<span class="info">i<span class="tip">Team cases where the visit has happened but no recommendation has been submitted yet — either it was never entered, or it was entered and never submitted.</span></span></div>
+          <div class="card-title">Cases: Pending Recommendation / Submission<span class="info">i<span class="tip">Team cases where the visit has happened but no recommendation has been submitted yet — either it was never entered, or it was entered and never submitted. Same wording as the CAS staff dashboard.</span></span></div>
           <div class="stat-big" style="color:var(--warn);">34</div>
         </div>
         <div class="card tile-compact">
-          <div class="card-title">Cases: Closed This Month<span class="info r">i<span class="tip">Cases the team has fully closed out and had approved by DFSS since the first of the month.</span></span></div>
-          <div class="stat-big" style="color:var(--standard);">18</div>
+          <div class="card-title">Case Performance<span class="info r">i<span class="tip">Cases closed against cases referred, as a count and a percentage. The left side is the current month. The right side is cumulative for the calendar year and resets January 1.</span></span></div>
+          <div class="perf-split">
+            <div>
+              <div class="pl">This Month</div>
+              <div class="pv" style="color:var(--standard);">18 <span class="of">/ 62</span></div>
+              <div class="pd">29% closed</div>
+            </div>
+            <div>
+              <div class="pl">Year to Date</div>
+              <div class="pv" style="color:var(--standard);">402 <span class="of">/ 588</span></div>
+              <div class="pd">68% closed</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="section-title">Team Performance by Caseworker<span class="info">i<span class="tip">The same team numbers broken out per caseworker, so you can see who is carrying what and where work is piling up.</span></span></div>
-      <div class="table-wrap box-short">
+      <div class="grid grid-3" style="margin-bottom:18px;">
+        <div class="card tile-compact">
+          <div class="card-title">Cumulative — Year to Date<span class="info">i<span class="tip">Referred, closed and still pending for the calendar year to date. Resets January 1.</span></span></div>
+          <div class="measure">
+            <div class="mrow"><span class="ml">Referred</span><span><span class="mv">588</span></span></div>
+            <div class="mrow"><span class="ml">Closed</span><span><span class="mv" style="color:var(--standard);">402</span><span class="mn">68%</span></span></div>
+            <div class="mrow"><span class="ml">Pending</span><span><span class="mv" style="color:var(--warn);">186</span><span class="mn">32%</span></span></div>
+          </div>
+        </div>
+        <div class="card tile-compact measure">
+          <div class="card-title">Contractual: First Visit Within Priority Timeframe<span class="info">i<span class="tip">Contractual measure 1 — of the cases referred in the period, the share where the first visit was conducted inside the timeframe for that priority code.</span></span></div>
+          <div class="mrow"><span class="ml">This Month</span><span><span class="mv" style="color:var(--standard);">86%</span><span class="mn">53 / 62</span></span></div>
+          <div class="mrow"><span class="ml">Year to Date</span><span><span class="mv" style="color:var(--standard);">82%</span><span class="mn">482 / 588</span></span></div>
+        </div>
+        <div class="card tile-compact measure">
+          <div class="card-title">Contractual: Case Completed Within Priority Timeframe<span class="info r">i<span class="tip">Contractual measure 2 — of the cases referred in the period, the share fully completed inside the timeframe for that priority code.</span></span></div>
+          <div class="mrow"><span class="ml">This Month</span><span><span class="mv" style="color:var(--warn);">74%</span><span class="mn">46 / 62</span></span></div>
+          <div class="mrow"><span class="ml">Year to Date</span><span><span class="mv" style="color:var(--warn);">71%</span><span class="mn">418 / 588</span></span></div>
+        </div>
+      </div>
+
+      <div class="section-title">Team Performance by Caseworker<span class="info">i<span class="tip">The same team numbers broken out per caseworker. The left group is the live queue, the middle group is cumulative for the year, and the right group is the two contractual measures — so you can see at a glance who is carrying what and whose documentation is falling outside the timeframe.</span></span></div>
+      <div class="table-wrap" style="height:auto;">
         <table>
           <thead>
-            <tr>
-              <th style="width:24%;">Caseworker</th>
+            <tr class="grp">
+              <th class="spacer"></th>
+              <th colspan="5">Current Queue</th>
+              <th colspan="3" class="gsep">Year to Date</th>
+              <th colspan="2" class="gsep">Contractual Measures (YTD)</th>
+            </tr>
+            <tr class="hdr">
+              <th style="width:17%;">Caseworker</th>
               <th>Assigned</th>
-              <th>Overdue</th>
+              <th>Past Priority TF</th>
               <th>Pending Rec / Submission</th>
-              <th>Pending My Review</th>
+              <th>Pending Supervisor Review</th>
               <th>Sent Back</th>
+              <th class="gsep">Referred</th>
+              <th>Closed</th>
+              <th>Closed %</th>
+              <th class="gsep">1st Visit in TF</th>
+              <th>Completed in TF</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td><a class="case-link" href="#">Marlo Payne</a></td><td>18</td><td style="color:var(--danger);font-weight:700;">9</td><td>14</td><td>4</td><td>4</td></tr>
-            <tr><td><a class="case-link" href="#">Mariela Mondragon</a></td><td>15</td><td style="color:var(--danger);font-weight:700;">7</td><td>11</td><td>5</td><td>3</td></tr>
-            <tr><td><a class="case-link" href="#">Demetrious Thomas</a></td><td>12</td><td style="color:var(--danger);font-weight:700;">5</td><td>9</td><td>3</td><td>2</td></tr>
-            <tr style="background:#f2f6fb;font-weight:700;"><td>Team Total</td><td>45</td><td>21</td><td>34</td><td>12</td><td>9</td></tr>
+            <tr>
+              <td><a class="case-link" href="#">Marlo Payne</a></td>
+              <td>18</td><td style="color:var(--danger);font-weight:700;">9</td><td>14</td><td>4</td><td>4</td>
+              <td class="gsep">231</td><td>164</td><td>71%</td>
+              <td class="gsep" style="color:var(--standard);font-weight:700;">86%</td><td style="color:var(--standard);font-weight:700;">75%</td>
+            </tr>
+            <tr>
+              <td><a class="case-link" href="#">Mariela Mondragon</a></td>
+              <td>15</td><td style="color:var(--danger);font-weight:700;">7</td><td>11</td><td>5</td><td>3</td>
+              <td class="gsep">198</td><td>128</td><td>65%</td>
+              <td class="gsep" style="color:var(--danger);font-weight:700;">74%</td><td style="color:var(--danger);font-weight:700;">62%</td>
+            </tr>
+            <tr>
+              <td><a class="case-link" href="#">Demetrious Thomas</a></td>
+              <td>12</td><td style="color:var(--danger);font-weight:700;">5</td><td>9</td><td>3</td><td>2</td>
+              <td class="gsep">159</td><td>110</td><td>69%</td>
+              <td class="gsep" style="color:var(--standard);font-weight:700;">88%</td><td style="color:var(--standard);font-weight:700;">78%</td>
+            </tr>
+            <tr style="background:#f2f6fb;font-weight:700;">
+              <td>Team Total</td>
+              <td>45</td><td>21</td><td>34</td><td>12</td><td>9</td>
+              <td class="gsep">588</td><td>402</td><td>68%</td>
+              <td class="gsep">82%</td><td>71%</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
-      <div class="section-title">Needs My Action<span class="info">i<span class="tip">The three queues that belong to you as supervisor: referrals waiting to be assigned, recommendations waiting on your review, and anything DFSS has sent back to CAS.</span></span></div>
+      <div class="section-title">Needs Supervisor Action<span class="info">i<span class="tip">The four queues that belong to you as supervisor: referrals waiting to be assigned, recommendations waiting on your review, determinations DFSS rejected, and 311 review page closeouts DFSS sent back. Every table shows Days Waiting, and anything sitting more than three days is flagged.</span></span></div>
 
-      <div class="grid grid-3" style="margin-bottom:18px;">
+      <div class="grid grid-4" style="margin-bottom:18px;">
         <div class="card tile-compact">
-          <div class="card-title">Cases: Unassigned<span class="info">i<span class="tip">Cases DFSS has referred to CAS that are not assigned to a caseworker yet. Assign these first — the visit clock is already running.</span></span></div>
+          <div class="card-title">Cases: Referrals (Unassigned)<span class="info">i<span class="tip">Cases DFSS has referred to CAS that are not assigned to a caseworker yet. Assign these first — the visit clock started when DFSS referred the case, not when you assign it.</span></span></div>
           <div class="stat-big" style="color:var(--warn);">9</div>
         </div>
         <div class="card tile-compact">
-          <div class="card-title">Cases: Pending My Review<span class="info">i<span class="tip">Recommendations your staff have submitted that are waiting on your review. Once you approve one it moves on to DFSS for final sign-off.</span></span></div>
+          <div class="card-title">Determinations: Pending Supervisor Review<span class="info">i<span class="tip">Recommendations your staff have submitted that are waiting on your review of the recommendation. Once you approve one it moves on to DFSS for final sign-off.</span></span></div>
           <div class="stat-big" style="color:var(--accent);">12</div>
         </div>
         <div class="card tile-compact" style="border-color:#f0b9b9;">
-          <div class="card-title" style="color:var(--danger);">Cases: Sent Back by DFSS<span class="info r">i<span class="tip">Everything DFSS has returned to CAS — 6 rejected determinations and 3 rejected closeouts. Today these only arrive by email, so this is the single place to see them all.</span></span></div>
-          <div class="stat-big" style="color:var(--danger);">9</div>
+          <div class="card-title" style="color:var(--danger);">Determinations Rejected by DFSS — Requiring Revision<span class="info">i<span class="tip">Recommendations you approved that DFSS then rejected in the determination section. The case has to be corrected and resubmitted. Today these only arrive by email — this is the gap the dashboard closes.</span></span></div>
+          <div class="stat-big" style="color:var(--danger);">6</div>
+        </div>
+        <div class="card tile-compact" style="border-color:#f0b9b9;">
+          <div class="card-title" style="color:var(--danger);">Sent Back by DFSS: 311 Review Page Closeout<span class="info r">i<span class="tip">Cases CAS closed on the 311 review page before an appointment was ever made, which DFSS reviewed on the Closeout Review tab and sent back. The closure was not accepted, so the case is active again. ECM calls this &ldquo;sent back,&rdquo; not &ldquo;rejected.&rdquo;</span></span></div>
+          <div class="stat-big" style="color:var(--danger);">3</div>
         </div>
       </div>
 
       <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 16px; align-items: start;">
 
         <div>
-          <div class="section-title" style="margin-top:0;">Cases: Unassigned<span class="info">i<span class="tip">Referrals from DFSS with no caseworker attached. “Days Waiting” counts from the date DFSS referred the case, not from when it was assigned.</span></span></div>
+          <div class="section-title" style="margin-top:0;">Cases: Referrals (Unassigned)<span class="info">i<span class="tip">Referrals from DFSS with no caseworker attached. &ldquo;Days Waiting&rdquo; counts from the date DFSS referred the case, not from when it was assigned. Anything over three days is flagged.</span></span></div>
           <div class="table-wrap box-pair">
             <table>
               <thead>
-                <tr>
-                  <th style="width:44px;">Pri</th>
-                  <th style="width:26%;">Name</th>
+                <tr class="hdr">
+                  <th style="width:64px;">Priority</th>
+                  <th style="width:25%;">Name</th>
                   <th>Street Address</th>
-                  <th style="width:14%;">Referred</th>
+                  <th style="width:13%;">Referred</th>
                   <th style="width:15%;">Days Waiting</th>
                 </tr>
               </thead>
               <tbody>
-                <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Dolores Pike</a></td><td>3327 S Morgan St</td><td>Aug 14</td><td style="color:var(--danger);font-weight:700;">6</td></tr>
-                <tr style="background:#fdecea;"><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Alonzo Fry</a></td><td>5501 S Wood St</td><td>Aug 15</td><td style="color:var(--danger);font-weight:700;">5</td></tr>
-                <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Bettye Cross</a></td><td>4029 W Adams St</td><td>Aug 16</td><td style="color:var(--danger);font-weight:700;">4</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Dolores Pike</a></td><td>3327 S Morgan St</td><td>Aug 14</td><td style="color:var(--danger);font-weight:700;"><span class="flag">!</span>6</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Alonzo Fry</a></td><td>5501 S Wood St</td><td>Aug 15</td><td style="color:var(--danger);font-weight:700;"><span class="flag">!</span>5</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Bettye Cross</a></td><td>4029 W Adams St</td><td>Aug 16</td><td style="color:var(--danger);font-weight:700;"><span class="flag">!</span>4</td></tr>
                 <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Herbert Nolan</a></td><td>6031 N Winthrop Ave</td><td>Aug 17</td><td style="color:var(--warn);font-weight:700;">3</td></tr>
                 <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Alvin Cheng</a></td><td>7238 S Constance Ave</td><td>Aug 18</td><td style="color:var(--warn);font-weight:700;">2</td></tr>
                 <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Marta Silva</a></td><td>1519 N Pulaski Rd, Apt 4</td><td>Aug 18</td><td style="color:var(--warn);font-weight:700;">2</td></tr>
@@ -707,31 +863,32 @@
         </div>
 
         <div>
-          <div class="section-title" style="margin-top:0;">Cases: Pending My Review<span class="info r">i<span class="tip">The same list as the CAS queue on the application page. Each row is a recommendation a caseworker submitted and is waiting on you to review before it reaches DFSS.</span></span></div>
+          <div class="section-title" style="margin-top:0;">Determinations: Pending Supervisor Review of Recommendation<span class="info r">i<span class="tip">The same list as the CAS queue on the application page. Each row is a recommendation a caseworker submitted and is waiting on you to review before it reaches DFSS. &ldquo;Days Waiting&rdquo; counts from the submitted date; anything over three days is flagged.</span></span></div>
           <div class="table-wrap box-pair">
             <table>
               <thead>
-                <tr>
-                  <th style="width:44px;">Pri</th>
-                  <th style="width:24%;">Name</th>
+                <tr class="hdr">
+                  <th style="width:64px;">Priority</th>
+                  <th style="width:22%;">Name</th>
                   <th>Caseworker</th>
-                  <th style="width:18%;">Recommendation</th>
-                  <th style="width:14%;">Submitted</th>
+                  <th style="width:16%;">Recommendation</th>
+                  <th style="width:12%;">Submitted</th>
+                  <th style="width:15%;">Days Waiting</th>
                 </tr>
               </thead>
               <tbody>
-                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Gloria Estes</a></td><td>Marlo Payne</td><td>Close</td><td>Aug 14</td></tr>
-                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Wendell Pratt</a></td><td>Mariela Mondragon</td><td>Close</td><td>Aug 15</td></tr>
-                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Curtis Boyd</a></td><td>Marlo Payne</td><td>Refer to ICAS</td><td>Aug 15</td></tr>
-                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Ana Reyes</a></td><td>Demetrious Thomas</td><td>Close</td><td>Aug 16</td></tr>
-                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Faye Dunlap</a></td><td>Mariela Mondragon</td><td>Close</td><td>Aug 16</td></tr>
-                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Loretta Day</a></td><td>Demetrious Thomas</td><td>Close</td><td>Aug 17</td></tr>
-                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Sylvia Marsh</a></td><td>Mariela Mondragon</td><td>Refer to ICAS</td><td>Aug 17</td></tr>
-                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Hollis Grant</a></td><td>Marlo Payne</td><td>Close</td><td>Aug 18</td></tr>
-                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Inez Powell</a></td><td>Mariela Mondragon</td><td>Refer to ICAS</td><td>Aug 18</td></tr>
-                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Byron Lemons</a></td><td>Demetrious Thomas</td><td>Close</td><td>Aug 19</td></tr>
-                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Garrett Hines</a></td><td>Marlo Payne</td><td>Close</td><td>Aug 19</td></tr>
-                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Verna Sloan</a></td><td>Mariela Mondragon</td><td>Refer to ICAS</td><td>Aug 20</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Gloria Estes</a></td><td>Marlo Payne</td><td>Close</td><td>Aug 14</td><td style="color:var(--danger);font-weight:700;"><span class="flag">!</span>6</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Wendell Pratt</a></td><td>Mariela Mondragon</td><td>Close</td><td>Aug 15</td><td style="color:var(--danger);font-weight:700;"><span class="flag">!</span>5</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Curtis Boyd</a></td><td>Marlo Payne</td><td>Refer to ICAS</td><td>Aug 15</td><td style="color:var(--danger);font-weight:700;"><span class="flag">!</span>5</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Ana Reyes</a></td><td>Demetrious Thomas</td><td>Close</td><td>Aug 16</td><td style="color:var(--danger);font-weight:700;"><span class="flag">!</span>4</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Faye Dunlap</a></td><td>Mariela Mondragon</td><td>Close</td><td>Aug 16</td><td style="color:var(--danger);font-weight:700;"><span class="flag">!</span>4</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Loretta Day</a></td><td>Demetrious Thomas</td><td>Close</td><td>Aug 17</td><td style="color:var(--warn);font-weight:700;">3</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Sylvia Marsh</a></td><td>Mariela Mondragon</td><td>Refer to ICAS</td><td>Aug 17</td><td style="color:var(--warn);font-weight:700;">3</td></tr>
+                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Hollis Grant</a></td><td>Marlo Payne</td><td>Close</td><td>Aug 18</td><td style="color:var(--warn);font-weight:700;">2</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Inez Powell</a></td><td>Mariela Mondragon</td><td>Refer to ICAS</td><td>Aug 18</td><td style="color:var(--warn);font-weight:700;">2</td></tr>
+                <tr><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Byron Lemons</a></td><td>Demetrious Thomas</td><td>Close</td><td>Aug 19</td><td>1</td></tr>
+                <tr><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Garrett Hines</a></td><td>Marlo Payne</td><td>Close</td><td>Aug 19</td><td>1</td></tr>
+                <tr><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Verna Sloan</a></td><td>Mariela Mondragon</td><td>Refer to ICAS</td><td>Aug 20</td><td>0</td></tr>
               </tbody>
             </table>
           </div>
@@ -742,52 +899,61 @@
       <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 16px; align-items: start;">
 
         <div>
-          <div class="section-title">Sent Back by DFSS: Determinations<span class="info">i<span class="tip">Cases where a recommendation was submitted, you approved it, and DFSS rejected it. The case has to be corrected and resubmitted. This is the gap today — these only go out by email.</span></span></div>
+          <div class="section-title">Determinations Rejected by DFSS — Requiring Revision<span class="info">i<span class="tip">Cases where a recommendation was submitted, you approved it, and DFSS rejected it in the determination section. The case has to be corrected and resubmitted. &ldquo;Days Waiting&rdquo; counts from the date DFSS rejected it.</span></span></div>
           <div class="table-wrap box-pair">
             <table>
               <thead>
-                <tr>
-                  <th style="width:44px;">Pri</th>
-                  <th style="width:22%;">Name</th>
+                <tr class="hdr">
+                  <th style="width:64px;">Priority</th>
+                  <th style="width:20%;">Name</th>
                   <th>Caseworker</th>
-                  <th style="width:14%;">Sent Back</th>
-                  <th style="width:26%;">Reason</th>
+                  <th style="width:12%;">Rejected</th>
+                  <th style="width:14%;">Days Waiting</th>
+                  <th style="width:24%;">Reason</th>
                 </tr>
               </thead>
               <tbody>
-                <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Simon Vale</a></td><td>Demetrious Thomas</td><td>Aug 15</td><td>Missing case notes</td></tr>
-                <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Marcus Bell</a></td><td>Marlo Payne</td><td>Aug 15</td><td>Income section blank</td></tr>
-                <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Yolanda Cruz</a></td><td>Mariela Mondragon</td><td>Aug 16</td><td>Wrong recommendation type</td></tr>
-                <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Bernard Ott</a></td><td>Mariela Mondragon</td><td>Aug 18</td><td>Assessment incomplete</td></tr>
-                <tr style="background:#fdecea;"><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Greg Sullivan</a></td><td>Marlo Payne</td><td>Aug 18</td><td>Referrals not documented</td></tr>
-                <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Della Frost</a></td><td>Marlo Payne</td><td>Aug 19</td><td>Household members missing</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Simon Vale</a></td><td>Demetrious Thomas</td><td>Aug 15</td><td style="color:var(--danger);font-weight:700;"><span class="flag">!</span>5</td><td>Missing case notes</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Marcus Bell</a></td><td>Marlo Payne</td><td>Aug 15</td><td style="color:var(--danger);font-weight:700;"><span class="flag">!</span>5</td><td>Income section blank</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Yolanda Cruz</a></td><td>Mariela Mondragon</td><td>Aug 16</td><td style="color:var(--danger);font-weight:700;"><span class="flag">!</span>4</td><td>Wrong recommendation type</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Bernard Ott</a></td><td>Mariela Mondragon</td><td>Aug 18</td><td style="color:var(--warn);font-weight:700;">2</td><td>Assessment incomplete</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Greg Sullivan</a></td><td>Marlo Payne</td><td>Aug 18</td><td style="color:var(--warn);font-weight:700;">2</td><td>Referrals not documented</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Della Frost</a></td><td>Marlo Payne</td><td>Aug 19</td><td>1</td><td>Household members missing</td></tr>
               </tbody>
             </table>
           </div>
         </div>
 
         <div>
-          <div class="section-title">Sent Back by DFSS: Closeouts<span class="info r">i<span class="tip">Cases closed on the 311 page before an appointment was ever made, which DFSS reviewed and returned. The closure was not accepted, so the case is active again.</span></span></div>
+          <div class="section-title">Sent Back by DFSS: 311 Review Page Closeout<span class="info r">i<span class="tip">Cases CAS closed on the 311 review page before an appointment was ever made — usually a duplicate service request, occasionally a situation the senior reported resolved. DFSS reviewed the closure on the Closeout Review tab and sent it back, so the case is active again. ECM calls this &ldquo;sent back&rdquo; on this page, not &ldquo;rejected.&rdquo;</span></span></div>
           <div class="table-wrap box-pair">
             <table>
               <thead>
-                <tr>
-                  <th style="width:44px;">Pri</th>
-                  <th style="width:22%;">Name</th>
+                <tr class="hdr">
+                  <th style="width:64px;">Priority</th>
+                  <th style="width:20%;">Name</th>
                   <th>Caseworker</th>
-                  <th style="width:14%;">Sent Back</th>
-                  <th style="width:26%;">Reason</th>
+                  <th style="width:12%;">Sent Back</th>
+                  <th style="width:14%;">Days Waiting</th>
+                  <th style="width:24%;">Reason</th>
                 </tr>
               </thead>
               <tbody>
-                <tr style="background:#fdecea;"><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Ruth Kimball</a></td><td>Mariela Mondragon</td><td>Aug 14</td><td>Visit attempts not logged</td></tr>
-                <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Nadia Feld</a></td><td>Marlo Payne</td><td>Aug 17</td><td>Closure not justified</td></tr>
-                <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Ellis Warner</a></td><td>Demetrious Thomas</td><td>Aug 19</td><td>No refusal documented</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill E">E</span></td><td><a class="case-link" href="#">Ruth Kimball</a></td><td>Mariela Mondragon</td><td>Aug 14</td><td style="color:var(--danger);font-weight:700;"><span class="flag">!</span>6</td><td>Visit attempts not logged</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill S">S</span></td><td><a class="case-link" href="#">Nadia Feld</a></td><td>Marlo Payne</td><td>Aug 17</td><td style="color:var(--warn);font-weight:700;">3</td><td>Closure not justified</td></tr>
+                <tr style="background:#fdecea;"><td><span class="pill U">U</span></td><td><a class="case-link" href="#">Ellis Warner</a></td><td>Demetrious Thomas</td><td>Aug 19</td><td>1</td><td>No refusal documented</td></tr>
               </tbody>
             </table>
           </div>
         </div>
 
+      </div>
+
+      <div class="footer-note">
+        <strong>Open from Sep 10, 2026:</strong>
+        &nbsp;·&nbsp; Days Waiting and all priority clocks exclude weekends. City of Chicago holidays are <em>not</em> excluded yet — waiting on the observed-holiday list from Tiffany (CAS may not match the City calendar; e.g. day after Thanksgiving, Pulaski Day), then they get coded as recurring rules rather than per-year dates.
+        &nbsp;·&nbsp; The on-screen <em>Time in Queue</em> counter on the 311 page is being reviewed separately — the reports and these dashboards count correctly, that page has not been updated in some years.
+        &nbsp;·&nbsp; Supervisor turnaround metrics (average days to assign by priority code, average days to review) live on the DFSS dashboard, not here.
       </div>
 
     </section>
@@ -914,7 +1080,7 @@
   const META = {
     'dfss': {
       title: 'DFSS Dashboard',
-      sub: 'Department of Family and Support Services — Senior Services intake oversight'
+      sub: 'Department of Family and Support Services — Senior Services intake and supervisor oversight'
     },
     'cas-staff': {
       title: 'CAS Staff Dashboard',
@@ -922,7 +1088,7 @@
     },
     'cas-supervisor': {
       title: 'CAS Supervisor Dashboard',
-      sub: 'Team performance, case assignment, review queue, and DFSS sendbacks'
+      sub: 'Team performance, referral assignment, recommendation review, and DFSS sendbacks'
     },
     'cas-staff-simplified': {
       title: 'CAS Staff Dashboard — Simplified (older)',
