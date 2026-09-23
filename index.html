@@ -132,8 +132,12 @@
   .table-wrap.box-pair  { height: 380px; }
   .table-wrap.box-short { height: 200px; }
   .table-wrap thead th { position: sticky; top: 0; z-index: 3; box-shadow: inset 0 -1px 0 var(--border); }
-  .tile-compact { height: 112px; }
-  .tile-compact .card-title { line-height: 1.35; }
+  .tile-compact { min-height: 112px; display: flex; flex-direction: column; }
+  .tile-compact .card-title { line-height: 1.35; min-height: 30px; }
+  /* bottom-anchor the value so every tile in a row lines up, however the title wraps */
+  .tile-compact .stat-big,
+  .tile-compact .perf-split,
+  .tile-compact .measure { margin-top: auto; }
   .grid { display: grid; gap: 14px; }
   .grid-2 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(3, 1fr); }
@@ -289,7 +293,7 @@
   .perf-split > div { flex: 1; padding-right: 10px; }
   .perf-split > div + div { border-left: 1px solid var(--border); padding-left: 12px; padding-right: 0; }
   .perf-split .pl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 700; }
-  .perf-split .pv { font-size: 22px; font-weight: 700; line-height: 1.1; margin-top: 3px; }
+  .perf-split .pv { font-size: 22px; font-weight: 700; line-height: 1.1; margin-top: 3px; white-space: nowrap; }
   .perf-split .pv .of { font-size: 13px; color: var(--text-muted); font-weight: 600; }
   .perf-split .pd { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 
@@ -316,6 +320,15 @@
   }
   thead tr.grp th.spacer { background: #fafbfc; }
   th.gsep, td.gsep { border-left: 1px solid var(--border); }
+  /* many-column tables: tighten up, and scroll rather than clip on narrow screens */
+  /* grid children default to min-width:auto, which lets a wide table push the whole
+     page sideways instead of scrolling inside its own box */
+  .grid > div { min-width: 0; }
+  .table-wrap.box-pair { overflow-x: auto; }
+  .table-wrap.box-pair table { min-width: 430px; }
+  .table-wrap.wide { overflow-x: auto; }
+  .table-wrap.wide table { min-width: 800px; }
+  .table-wrap.wide th, .table-wrap.wide td { padding: 8px 9px; }
   .table-wrap thead tr.grp th { top: 0; }
   /* only offset the column row when a group row actually sits above it */
   .table-wrap thead tr.grp + tr.hdr th { top: 28px; }
@@ -427,7 +440,7 @@
 
 
       <div class="section-title">CAS Supervisor Performance <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:11px;margin-left:6px;">— turnaround on the steps that sit with the supervisor · added per Sep 10 feedback</span><span class="info">i<span class="tip">The layered view: the supervisor dashboard reports on the team, and this reports on the supervisors. Average days to assign is measured from the moment DFSS refers the case; average days to review is measured from the moment a caseworker submits the recommendation. Both exclude weekends.</span></span></div>
-      <div class="table-wrap" style="height:auto;">
+      <div class="table-wrap wide" style="height:auto;">
         <table>
           <thead>
             <tr class="grp">
@@ -746,20 +759,24 @@
             <div class="mrow"><span class="ml">Pending</span><span><span class="mv" style="color:var(--warn);">186</span><span class="mn">32%</span></span></div>
           </div>
         </div>
-        <div class="card tile-compact measure">
+        <div class="card tile-compact">
           <div class="card-title">Contractual: First Visit Within Priority Timeframe<span class="info">i<span class="tip">Contractual measure 1 — of the cases referred in the period, the share where the first visit was conducted inside the timeframe for that priority code.</span></span></div>
-          <div class="mrow"><span class="ml">This Month</span><span><span class="mv" style="color:var(--standard);">86%</span><span class="mn">53 / 62</span></span></div>
+          <div class="measure">
+            <div class="mrow"><span class="ml">This Month</span><span><span class="mv" style="color:var(--standard);">86%</span><span class="mn">53 / 62</span></span></div>
           <div class="mrow"><span class="ml">Year to Date</span><span><span class="mv" style="color:var(--standard);">82%</span><span class="mn">482 / 588</span></span></div>
+          </div>
         </div>
-        <div class="card tile-compact measure">
+        <div class="card tile-compact">
           <div class="card-title">Contractual: Case Completed Within Priority Timeframe<span class="info r">i<span class="tip">Contractual measure 2 — of the cases referred in the period, the share fully completed inside the timeframe for that priority code.</span></span></div>
-          <div class="mrow"><span class="ml">This Month</span><span><span class="mv" style="color:var(--warn);">74%</span><span class="mn">46 / 62</span></span></div>
+          <div class="measure">
+            <div class="mrow"><span class="ml">This Month</span><span><span class="mv" style="color:var(--warn);">74%</span><span class="mn">46 / 62</span></span></div>
           <div class="mrow"><span class="ml">Year to Date</span><span><span class="mv" style="color:var(--warn);">71%</span><span class="mn">418 / 588</span></span></div>
+          </div>
         </div>
       </div>
 
-      <div class="section-title">Team Performance by Caseworker<span class="info">i<span class="tip">The same team numbers broken out per caseworker. The left group is the live queue, the middle group is cumulative for the year, and the right group is the two contractual measures — so you can see at a glance who is carrying what and whose documentation is falling outside the timeframe.</span></span></div>
-      <div class="table-wrap" style="height:auto;">
+      <div class="section-title">Team Performance by Caseworker<span class="info">i<span class="tip">The same team numbers broken out per caseworker. The left group is the live queue, the middle group is cumulative for the year, and the right group is the two contractual measures (TF = priority timeframe) — so you can see at a glance who is carrying what and whose documentation is falling outside the timeframe.</span></span></div>
+      <div class="table-wrap wide" style="height:auto;">
         <table>
           <thead>
             <tr class="grp">
@@ -771,15 +788,15 @@
             <tr class="hdr">
               <th style="width:17%;">Caseworker</th>
               <th>Assigned</th>
-              <th>Past Priority TF</th>
-              <th>Pending Rec / Submission</th>
-              <th>Pending Supervisor Review</th>
+              <th>Exceeded TF</th>
+              <th>Pending Rec</th>
+              <th>Pending Review</th>
               <th>Sent Back</th>
               <th class="gsep">Referred</th>
               <th>Closed</th>
               <th>Closed %</th>
-              <th class="gsep">1st Visit in TF</th>
-              <th>Completed in TF</th>
+              <th class="gsep">1st Visit</th>
+              <th>Completed</th>
             </tr>
           </thead>
           <tbody>
