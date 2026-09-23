@@ -124,7 +124,8 @@
   .info:hover .tip { display: block; }
 
   /* Fixed-height, scrollable list boxes so every box lines up */
-  .table-wrap { height: 300px; overflow-y: auto; overflow-x: hidden; }
+  /* scroll, never hide: overflow-x:hidden silently swallowed the last columns */
+  .table-wrap { height: 300px; overflow-y: auto; overflow-x: auto; }
   /* Locked box heights. Left column 532 = 300 + 82 (title block) + 150 on the right. */
   .table-wrap.box-tall  { height: 532px; }
   .table-wrap.box-2of3  { height: 300px; }
@@ -273,7 +274,7 @@
 
   .table-wrap {
     background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
-    overflow-y: auto; overflow-x: hidden;
+    overflow-y: auto; overflow-x: auto;
   }
 
   .footer-note {
@@ -324,8 +325,8 @@
   /* grid children default to min-width:auto, which lets a wide table push the whole
      page sideways instead of scrolling inside its own box */
   .grid > div { min-width: 0; }
-  .table-wrap.box-pair { overflow-x: auto; }
   .table-wrap.box-pair table { min-width: 430px; }
+  .table-wrap.box-pair th, .table-wrap.box-pair td { padding: 8px 9px; }
   .table-wrap.wide { overflow-x: auto; }
   .table-wrap.wide table { min-width: 800px; }
   .table-wrap.wide th, .table-wrap.wide td { padding: 8px 9px; }
