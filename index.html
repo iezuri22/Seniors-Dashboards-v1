@@ -10,7 +10,7 @@
     --surface: #ffffff;
     --border: #e1e5ea;
     --text: #1f2937;
-    --text-muted: #6b7280;
+    --text-muted: #374151;
     --primary: #1f4e8c;
     --primary-soft: #eaf1fb;
     --accent: #2563eb;
@@ -54,7 +54,7 @@
     font-size: 12px; opacity: 0.75; margin-top: 2px;
   }
   .nav-label {
-    padding: 8px 20px; font-size: 11px; text-transform: uppercase;
+    padding: 8px 20px; font-size: 12px; text-transform: uppercase;
     letter-spacing: 0.8px; opacity: 0.65;
   }
   .nav-item {
@@ -99,7 +99,7 @@
   }
   /* Compact stat tile — smaller than default card */
   .tile-compact { padding: 12px 14px; min-height: 0; }
-  .tile-compact .card-title { margin-bottom: 6px; font-size: 11px; }
+  .tile-compact .card-title { margin-bottom: 6px; font-size: 12px; }
   .tile-compact .stat-big { font-size: 26px; }
 
   /* Info icon + hover tooltip */
@@ -168,7 +168,7 @@
     margin-bottom: 12px;
   }
   .perf-header .label {
-    font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
     color: var(--text-muted); font-weight: 700;
   }
   .perf-header .count { font-size: 28px; font-weight: 700; color: var(--primary); }
@@ -185,7 +185,7 @@
   /* Pill / badge for priority codes */
   .pill {
     display: inline-block; padding: 2px 8px; border-radius: 999px;
-    font-size: 11px; font-weight: 700; letter-spacing: 0.4px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.4px;
   }
   .pill.E { background: var(--emergency-soft); color: var(--emergency); }
   .pill.U { background: var(--urgent-soft); color: var(--urgent); }
@@ -197,7 +197,7 @@
     background: var(--surface);
   }
   th {
-    text-align: left; font-size: 11px; text-transform: uppercase;
+    text-align: left; font-size: 12px; text-transform: uppercase;
     letter-spacing: 0.6px; color: var(--text-muted); font-weight: 700;
     padding: 10px 12px; border-bottom: 1px solid var(--border); background: #fafbfc;
   }
@@ -224,7 +224,7 @@
     padding: 8px 0;
   }
   .expiry-card .item + .item { border-top: 1px solid var(--border); }
-  .expiry-card .meta { font-size: 11px; color: var(--text-muted); }
+  .expiry-card .meta { font-size: 12px; color: var(--text-muted); }
 
   /* Banner / divider for major sections */
   .role-header {
@@ -256,7 +256,7 @@
     font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 6px;
   }
   .wcell .breakdown {
-    font-size: 11px; color: var(--text-muted); line-height: 1.6;
+    font-size: 12px; color: var(--text-muted); line-height: 1.6;
   }
   .breakdown .k { display: inline-block; min-width: 64px; font-weight: 600; }
   .worker-grid-header {
@@ -266,7 +266,7 @@
     border-bottom: 1px solid var(--border);
   }
   .worker-grid-header div {
-    padding: 10px 12px; font-size: 11px; text-transform: uppercase;
+    padding: 10px 12px; font-size: 12px; text-transform: uppercase;
     letter-spacing: 0.6px; color: var(--text-muted); font-weight: 700;
     border-right: 1px solid var(--border);
   }
@@ -293,31 +293,31 @@
   .perf-split { display: flex; }
   .perf-split > div { flex: 1; padding-right: 10px; }
   .perf-split > div + div { border-left: 1px solid var(--border); padding-left: 12px; padding-right: 0; }
-  .perf-split .pl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 700; }
+  .perf-split .pl { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 700; }
   .perf-split .pv { font-size: 22px; font-weight: 700; line-height: 1.1; margin-top: 3px; white-space: nowrap; }
   .perf-split .pv .of { font-size: 13px; color: var(--text-muted); font-weight: 600; }
-  .perf-split .pd { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .perf-split .pd { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
   /* Contractual measure / cumulative tiles */
   .measure .mrow { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; font-size: 12px; }
   .measure .mrow + .mrow { border-top: 1px dashed var(--border); }
   .measure .mrow .ml { color: var(--text-muted); font-weight: 600; }
   .measure .mrow .mv { font-size: 18px; font-weight: 700; }
-  .measure .mrow .mn { font-size: 11px; color: var(--text-muted); margin-left: 5px; font-weight: 400; }
+  .measure .mrow .mn { font-size: 12px; color: var(--text-muted); margin-left: 5px; font-weight: 400; }
 
   /* Karen: flag the rows that have been sitting too long — "look here, look here" */
   .flag {
     display: inline-flex; align-items: center; justify-content: center;
     width: 15px; height: 15px; border-radius: 50%;
     background: var(--danger); color: #fff;
-    font-size: 10px; font-weight: 800; line-height: 1;
+    font-size: 12px; font-weight: 800; line-height: 1;
     margin-right: 6px; vertical-align: middle;
   }
 
   /* Grouped (two-row) table headers */
   thead tr.grp th {
     text-align: center; background: #f2f6fb; color: var(--primary);
-    font-size: 10px; padding: 7px 12px; border-bottom: 1px solid var(--border);
+    font-size: 12px; padding: 7px 12px; border-bottom: 1px solid var(--border);
   }
   thead tr.grp th.spacer { background: #fafbfc; }
   th.gsep, td.gsep { border-left: 1px solid var(--border); }
@@ -391,7 +391,7 @@
         </div>
       </div>
 
-      <div class="section-title">CAS Performance — 311 Phase <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:11px;margin-left:6px;">— initial visit / SLA-timed work · across Marlo, Mariela, Demetrious + unassigned queue</span></div>
+      <div class="section-title">CAS Performance — 311 Phase <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:12px;margin-left:6px;">— initial visit / SLA-timed work · across Marlo, Mariela, Demetrious + unassigned queue</span></div>
       <div class="grid grid-2">
         <div class="card perf-card">
           <div class="perf-header">
@@ -413,37 +413,37 @@
         </div>
       </div>
 
-      <div class="section-title">CAS Performance — Application Phase <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:11px;margin-left:6px;">— CAS assessment work · post-311 · open-ended timeline</span></div>
+      <div class="section-title">CAS Performance — Application Phase <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:12px;margin-left:6px;">— CAS assessment work · post-311 · open-ended timeline</span></div>
       <div class="grid" style="grid-template-columns: repeat(5, 1fr); gap: 14px;">
         <div class="card">
           <div class="card-title">Completed Visits Awaiting Recommendation</div>
           <div class="stat-big" style="color:var(--accent);">22</div>
-          <div class="stat-row" style="margin-top:8px;color:var(--text-muted);font-size:11px;">visit done · no recommendation submitted yet</div>
+          <div class="stat-row" style="margin-top:8px;color:var(--text-muted);font-size:12px;">visit done · no recommendation submitted yet</div>
         </div>
         <div class="card">
           <div class="card-title">30+ Days Open</div>
           <div class="stat-big" style="color:var(--warn);">5</div>
-          <div class="stat-row" style="margin-top:8px;color:var(--text-muted);font-size:11px;">warning · subset of above</div>
+          <div class="stat-row" style="margin-top:8px;color:var(--text-muted);font-size:12px;">warning · subset of above</div>
         </div>
         <div class="card">
           <div class="card-title">60+ Days Open</div>
           <div class="stat-big" style="color:#d97706;">3</div>
-          <div class="stat-row" style="margin-top:8px;color:var(--text-muted);font-size:11px;">elevated · subset of 30+</div>
+          <div class="stat-row" style="margin-top:8px;color:var(--text-muted);font-size:12px;">elevated · subset of 30+</div>
         </div>
         <div class="card">
           <div class="card-title">90+ Days Open</div>
           <div class="stat-big" style="color:var(--danger);">2</div>
-          <div class="stat-row" style="margin-top:8px;color:var(--text-muted);font-size:11px;">critical · subset of 60+</div>
+          <div class="stat-row" style="margin-top:8px;color:var(--text-muted);font-size:12px;">critical · subset of 60+</div>
         </div>
         <div class="card">
           <div class="card-title">Pending CAS Supervisor</div>
           <div class="stat-big" style="color:var(--warn);">4</div>
-          <div class="stat-row" style="margin-top:8px;color:var(--text-muted);font-size:11px;">recommendations submitted · coming to DFSS next</div>
+          <div class="stat-row" style="margin-top:8px;color:var(--text-muted);font-size:12px;">recommendations submitted · coming to DFSS next</div>
         </div>
       </div>
 
 
-      <div class="section-title">CAS Supervisor Performance <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:11px;margin-left:6px;">— turnaround on the steps that sit with the supervisor · added per Sep 10 feedback</span><span class="info">i<span class="tip">The layered view: the supervisor dashboard reports on the team, and this reports on the supervisors. Average days to assign is measured from the moment DFSS refers the case; average days to review is measured from the moment a caseworker submits the recommendation. Both exclude weekends.</span></span></div>
+      <div class="section-title">CAS Supervisor Performance <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:12px;margin-left:6px;">— turnaround on the steps that sit with the supervisor · added per Sep 10 feedback</span><span class="info">i<span class="tip">The layered view: the supervisor dashboard reports on the team, and this reports on the supervisors. Average days to assign is measured from the moment DFSS refers the case; average days to review is measured from the moment a caseworker submits the recommendation. Both exclude weekends.</span></span></div>
       <div class="table-wrap wide" style="height:auto;">
         <table>
           <thead>
@@ -499,7 +499,7 @@
       </div>
 
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 14px 0;font-size:12px;">
-        <span style="font-weight:700;text-transform:uppercase;letter-spacing:0.5px;font-size:11px;color:var(--text-muted);">Showing:</span>
+        <span style="font-weight:700;text-transform:uppercase;letter-spacing:0.5px;font-size: 12px;color:var(--text-muted);">Showing:</span>
         <select style="background:#fff;border:1px solid var(--border);border-radius:4px;padding:4px 10px;font-size:13px;font-weight:600;color:var(--primary);min-width:200px;">
           <option selected>Marlo Payne (me)</option>
           <option>Mariela Mondragon</option>
@@ -713,7 +713,7 @@
       </div>
 
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 14px 0;font-size:12px;">
-        <span style="font-weight:700;text-transform:uppercase;letter-spacing:0.5px;font-size:11px;color:var(--text-muted);">Showing:</span>
+        <span style="font-weight:700;text-transform:uppercase;letter-spacing:0.5px;font-size: 12px;color:var(--text-muted);">Showing:</span>
         <select style="background:#fff;border:1px solid var(--border);border-radius:4px;padding:4px 10px;font-size:13px;font-weight:600;color:var(--primary);min-width:220px;">
           <option selected>All CAS staff (team view)</option>
           <option>Marlo Payne</option>
@@ -730,7 +730,7 @@
           <div class="stat-big" style="color:var(--accent);">45</div>
         </div>
         <div class="card tile-compact">
-          <div class="card-title">Cases: Exceeded Priority Timeframe<span class="info">i<span class="tip">Team cases that have passed the required visit timeframe for their priority code. They are still active and still need a visit. The clock excludes weekends; City of Chicago holidays will be excluded once the observed-holiday list is confirmed.</span></span></div>
+          <div class="card-title">Cases: Exceeded Priority Timeframe<span class="info">i<span class="tip">Team cases that have passed the required visit timeframe for their priority code. They are still active and still need a visit. The clock excludes weekends; Holidays will be excluded using the CAS provider&rsquo;s own holiday schedule (Salvation Army&rsquo;s, not the City&rsquo;s) — every priority clock pauses for them, Emergency included.</span></span></div>
           <div class="stat-big" style="color:var(--danger);">21</div>
         </div>
         <div class="card tile-compact">
@@ -764,14 +764,14 @@
           </div>
         </div>
         <div class="card tile-compact">
-          <div class="card-title">Contractual: First Visit Within Priority Timeframe<span class="info">i<span class="tip">Contractual measure 1 — of the cases referred in the period, the share where the first visit was conducted inside the timeframe for that priority code.</span></span></div>
+          <div class="card-title">CAS Goal 1: First Visit Within Priority Timeframe<span class="info">i<span class="tip">CAS Goal 1 (contractual) — of the cases referred in the period, the share where the first visit was conducted inside the timeframe for that priority code.</span></span></div>
           <div class="measure">
             <div class="mrow"><span class="ml">This Month</span><span><span class="mv" style="color:var(--standard);">86%</span><span class="mn">53 / 62</span></span></div>
           <div class="mrow"><span class="ml">Year to Date</span><span><span class="mv" style="color:var(--standard);">82%</span><span class="mn">482 / 588</span></span></div>
           </div>
         </div>
         <div class="card tile-compact">
-          <div class="card-title">Contractual: Case Completed Within Priority Timeframe<span class="info r">i<span class="tip">Contractual measure 2 — of the cases referred in the period, the share fully completed inside the timeframe for that priority code.</span></span></div>
+          <div class="card-title">CAS Goal 2: Case Completed Within Priority Timeframe<span class="info r">i<span class="tip">CAS Goal 2 (contractual) — of the cases referred in the period, the share fully completed inside the timeframe for that priority code.</span></span></div>
           <div class="measure">
             <div class="mrow"><span class="ml">This Month</span><span><span class="mv" style="color:var(--warn);">74%</span><span class="mn">46 / 62</span></span></div>
           <div class="mrow"><span class="ml">Year to Date</span><span><span class="mv" style="color:var(--warn);">71%</span><span class="mn">418 / 588</span></span></div>
@@ -779,24 +779,25 @@
         </div>
       </div>
 
-      <div class="section-title">Team Performance by Caseworker<span class="info">i<span class="tip">The same team numbers broken out per caseworker. The left group is the live queue, the middle group is cumulative for the year, and the right group is the two contractual measures (TF = priority timeframe) — so you can see at a glance who is carrying what and whose documentation is falling outside the timeframe.</span></span></div>
+      <div class="section-title">Team Performance by Caseworker<span class="info">i<span class="tip">The same team numbers broken out per caseworker. The left group is the live queue, the middle group is cumulative for the year, and the right group is the two CAS goals as performance metrics. Assigned is the live queue (not a year total) and Overdue means past the priority timeframe. Referred % is each caseworker&rsquo;s share of everything referred to the team this year — so you can see at a glance who is carrying the most cases and whose documentation is falling outside the timeframe.</span></span></div>
       <div class="table-wrap wide" style="height:auto;">
         <table>
           <thead>
             <tr class="grp">
               <th class="spacer"></th>
               <th colspan="5">Current Queue</th>
-              <th colspan="3" class="gsep">Year to Date</th>
-              <th colspan="2" class="gsep">Contractual Measures (YTD)</th>
+              <th colspan="4" class="gsep">Year to Date</th>
+              <th colspan="2" class="gsep">Performance Metrics (YTD)</th>
             </tr>
             <tr class="hdr">
               <th style="width:17%;">Caseworker</th>
               <th>Assigned</th>
-              <th>Exceeded TF</th>
+              <th>Overdue</th>
               <th>Pending Rec</th>
               <th>Pending Review</th>
               <th>Sent Back</th>
               <th class="gsep">Referred</th>
+              <th>Referred %</th>
               <th>Closed</th>
               <th>Closed %</th>
               <th class="gsep">1st Visit</th>
@@ -807,25 +808,25 @@
             <tr>
               <td><a class="case-link" href="#">Marlo Payne</a></td>
               <td>18</td><td style="color:var(--danger);font-weight:700;">9</td><td>14</td><td>4</td><td>4</td>
-              <td class="gsep">231</td><td>164</td><td>71%</td>
+              <td class="gsep">231</td><td>39%</td><td>164</td><td>71%</td>
               <td class="gsep" style="color:var(--standard);font-weight:700;">86%</td><td style="color:var(--standard);font-weight:700;">75%</td>
             </tr>
             <tr>
               <td><a class="case-link" href="#">Mariela Mondragon</a></td>
               <td>15</td><td style="color:var(--danger);font-weight:700;">7</td><td>11</td><td>5</td><td>3</td>
-              <td class="gsep">198</td><td>128</td><td>65%</td>
+              <td class="gsep">198</td><td>34%</td><td>128</td><td>65%</td>
               <td class="gsep" style="color:var(--danger);font-weight:700;">74%</td><td style="color:var(--danger);font-weight:700;">62%</td>
             </tr>
             <tr>
               <td><a class="case-link" href="#">Demetrious Thomas</a></td>
               <td>12</td><td style="color:var(--danger);font-weight:700;">5</td><td>9</td><td>3</td><td>2</td>
-              <td class="gsep">159</td><td>110</td><td>69%</td>
+              <td class="gsep">159</td><td>27%</td><td>110</td><td>69%</td>
               <td class="gsep" style="color:var(--standard);font-weight:700;">88%</td><td style="color:var(--standard);font-weight:700;">78%</td>
             </tr>
             <tr style="background:#f2f6fb;font-weight:700;">
               <td>Team Total</td>
               <td>45</td><td>21</td><td>34</td><td>12</td><td>9</td>
-              <td class="gsep">588</td><td>402</td><td>68%</td>
+              <td class="gsep">588</td><td>100%</td><td>402</td><td>68%</td>
               <td class="gsep">82%</td><td>71%</td>
             </tr>
           </tbody>
@@ -971,9 +972,10 @@
       </div>
 
       <div class="footer-note">
-        <strong>Open from Sep 10, 2026:</strong>
-        &nbsp;·&nbsp; Days Waiting and all priority clocks exclude weekends. City of Chicago holidays are <em>not</em> excluded yet — waiting on the observed-holiday list from Tiffany (CAS may not match the City calendar; e.g. day after Thanksgiving, Pulaski Day), then they get coded as recurring rules rather than per-year dates.
-        &nbsp;·&nbsp; The on-screen <em>Time in Queue</em> counter on the 311 page is being reviewed separately — the reports and these dashboards count correctly, that page has not been updated in some years.
+        <strong>Open from Oct 1, 2026:</strong>
+        &nbsp;·&nbsp; Days Waiting and all priority clocks exclude weekends. Holidays are <em>not</em> excluded yet. Salvation Army&rsquo;s holiday summary is in (from Jose); it does not match the City calendar (e.g. the Friday after Thanksgiving, Employee Appreciation Day; no Indigenous Peoples&rsquo; Day). ECM&rsquo;s holiday setup is site-wide, so the schedule has to be tied to the CAS provider instead, allowing a second provider with its own schedule. Holidays pause every clock, Emergency included: an Emergency referral at 5 PM Friday before Memorial Day is due 5 PM Tuesday.
+        &nbsp;·&nbsp; Visits logged before the referral (DFSS-initiated special assignments, entered into ECM after the visit) will count as 0 hours, not negative, in time-to-visit and time-to-close figures.
+        &nbsp;·&nbsp; Accessibility: this is a mock-up. The production build goes through ECM&rsquo;s accessibility standards (minimum font sizes, contrast). Karen prefers bigger type and darker text over spacing.
         &nbsp;·&nbsp; Supervisor turnaround metrics (average days to assign by priority code, average days to review) live on the DFSS dashboard, not here.
       </div>
 
@@ -988,7 +990,7 @@
       </div>
 
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 14px 0;font-size:12px;">
-        <span style="font-weight:700;text-transform:uppercase;letter-spacing:0.5px;font-size:11px;color:var(--text-muted);">Showing:</span>
+        <span style="font-weight:700;text-transform:uppercase;letter-spacing:0.5px;font-size: 12px;color:var(--text-muted);">Showing:</span>
         <select style="background:#fff;border:1px solid var(--border);border-radius:4px;padding:4px 10px;font-size:13px;font-weight:600;color:var(--primary);min-width:200px;">
           <option selected>Marlo Payne (me)</option>
           <option>Mariela Mondragon</option>
@@ -1002,7 +1004,7 @@
 
         <!-- LEFT: Cases Needing Immediate Attention -->
         <div>
-          <div class="section-title" style="margin-top:0;">Cases Needing Immediate Attention <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:11px;margin-left:6px;">— overdue &amp; due soon · sorted by urgency</span></div>
+          <div class="section-title" style="margin-top:0;">Cases Needing Immediate Attention <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:12px;margin-left:6px;">— overdue &amp; due soon · sorted by urgency</span></div>
           <div class="table-wrap">
             <table>
               <thead>
@@ -1026,7 +1028,7 @@
               </tbody>
             </table>
           </div>
-          <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">
+          <div style="font-size: 12px;color:var(--text-muted);margin-top:6px;">
             <strong style="color:var(--danger);">●</strong> overdue or &lt; 1 day &middot;
             <strong style="color:var(--warn);">●</strong> within 1–2 days
           </div>
@@ -1034,7 +1036,7 @@
 
         <!-- RIGHT: Completed but No Recommendation -->
         <div>
-          <div class="section-title" style="margin-top:0;">Completed but No Recommendation <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:11px;margin-left:6px;">— visit done · waiting on you to submit a recommendation</span></div>
+          <div class="section-title" style="margin-top:0;">Completed but No Recommendation <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:12px;margin-left:6px;">— visit done · waiting on you to submit a recommendation</span></div>
           <div class="table-wrap">
             <table>
               <thead>
@@ -1055,7 +1057,7 @@
               </tbody>
             </table>
           </div>
-          <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">
+          <div style="font-size: 12px;color:var(--text-muted);margin-top:6px;">
             <strong style="color:var(--warn);">●</strong> 30+ days &middot;
             <strong style="color:var(--danger);">●</strong> 90+ days
           </div>
@@ -1064,7 +1066,7 @@
       </div>
 
       <!-- Upcoming Appointments — below the two main sections -->
-      <div class="section-title">Upcoming Appointments <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:11px;margin-left:6px;">— this week (Apr 30 – May 6, 2026)</span></div>
+      <div class="section-title">Upcoming Appointments <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:12px;margin-left:6px;">— this week (Apr 30 – May 6, 2026)</span></div>
       <div class="table-wrap">
         <table>
           <thead>
