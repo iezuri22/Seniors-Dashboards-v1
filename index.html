@@ -336,6 +336,46 @@
   .table-wrap thead tr.grp th { top: 0; }
   /* only offset the column row when a group row actually sits above it */
   .table-wrap thead tr.grp + tr.hdr th { top: 28px; }
+
+  /* ══════════════════════════════════════════════════════════════
+     Oct 1, 2026 follow-up — CAS Supervisor only
+     ══════════════════════════════════════════════════════════════ */
+
+  /* Karen: bigger numbers, less empty space between them */
+  #cas-supervisor .grid { gap: 12px; }
+  #cas-supervisor .section-title { height: 42px; margin: 18px 0 8px 0; }
+  #cas-supervisor .card-title { font-size: 13px; }
+  #cas-supervisor .tile-compact { padding: 10px 14px; min-height: 0; }
+  #cas-supervisor .tile-compact .card-title { min-height: 35px; margin-bottom: 4px; }
+  #cas-supervisor .tile-compact .stat-big { font-size: 40px; }
+  #cas-supervisor .perf-split .pl,
+  #cas-supervisor .perf-split .pd { font-size: 13px; }
+  #cas-supervisor .perf-split .pv { font-size: 30px; }
+  #cas-supervisor .perf-split .pv .of { font-size: 16px; }
+  #cas-supervisor .measure .mrow { padding: 3px 0; font-size: 14px; }
+  #cas-supervisor .measure .mrow .mv { font-size: 26px; }
+  #cas-supervisor .measure .mrow .mn { font-size: 14px; }
+  #cas-supervisor th { font-size: 13px; }
+  #cas-supervisor td { font-size: 15px; }
+  /* the paired lists are half-width: bigger uppercase headers alone pushed them into a scroll */
+  #cas-supervisor .table-wrap.box-pair th { font-size: 12px; letter-spacing: 0.3px; }
+  #cas-supervisor .table-wrap.box-pair th,
+  #cas-supervisor .table-wrap.box-pair td { padding-left: 6px; padding-right: 6px; }
+  #cas-supervisor .table-wrap.wide td { font-size: 18px; padding: 6px 9px; }
+  #cas-supervisor .table-wrap.wide td:first-child { font-size: 15px; }
+  #cas-supervisor .pill { font-size: 13px; }
+  /* quarter-width tiles get narrow below ~1300px: "402 / 588" and "RECOMMENDATION" stop fitting */
+  @media (max-width: 1300px) {
+    #cas-supervisor .card-title { font-size: 12px; }
+    #cas-supervisor .perf-split .pv { font-size: 24px; }
+    #cas-supervisor .perf-split .pv .of { font-size: 14px; }
+  }
+
+  /* Karen: switch the page to one caseworker for a one-on-one */
+  #cas-supervisor tr.cw-on td { background: #fff8e1; }
+  #cas-supervisor tr.cw-on td:first-child { box-shadow: inset 4px 0 0 var(--primary); }
+  #cas-supervisor tr.cw-off td { color: var(--text-muted); }
+  #cas-supervisor tr.cw-off td[style*="font-weight"] { color: var(--text-muted) !important; }
 </style>
 </head>
 <body>
@@ -714,12 +754,13 @@
 
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 14px 0;font-size:12px;">
         <span style="font-weight:700;text-transform:uppercase;letter-spacing:0.5px;font-size: 12px;color:var(--text-muted);">Showing:</span>
-        <select style="background:#fff;border:1px solid var(--border);border-radius:4px;padding:4px 10px;font-size:13px;font-weight:600;color:var(--primary);min-width:220px;">
-          <option selected>All CAS staff (team view)</option>
+        <select id="cwSelect" aria-label="Show one caseworker" style="background:#fff;border:1px solid var(--border);border-radius:4px;padding:6px 10px;font-size:15px;font-weight:600;color:var(--primary);min-width:240px;">
+          <option value="" selected>All CAS staff (team view)</option>
           <option>Marlo Payne</option>
           <option>Mariela Mondragon</option>
           <option>Demetrious Thomas</option>
         </select>
+        <span id="cwNote" style="font-size:13px;color:var(--text-muted);">Team tiles always show the whole team. Pick a caseworker to highlight their row and filter the review, rejected and sent-back lists to their cases.</span>
       </div>
 
       <div class="section-title">Team Performance<span class="info">i<span class="tip">How your team is doing overall, across Marlo, Mariela and Demetrious combined. The first row is what is on the team&rsquo;s plate right now. The second row is cumulative for the calendar year and resets January 1.</span></span></div>
@@ -730,7 +771,7 @@
           <div class="stat-big" style="color:var(--accent);">45</div>
         </div>
         <div class="card tile-compact">
-          <div class="card-title">Cases: Exceeded Priority Timeframe<span class="info">i<span class="tip">Team cases that have passed the required visit timeframe for their priority code. They are still active and still need a visit. The clock excludes weekends; Holidays will be excluded using the CAS provider&rsquo;s own holiday schedule (Salvation Army&rsquo;s, not the City&rsquo;s) — every priority clock pauses for them, Emergency included.</span></span></div>
+          <div class="card-title">Cases: Overdue<span class="info">i<span class="tip">Team cases that have passed the required visit timeframe for their priority code. They are still active and still need a visit. The clock excludes weekends; Holidays will be excluded using the CAS provider&rsquo;s own holiday schedule (Salvation Army&rsquo;s, not the City&rsquo;s) — every priority clock pauses for them, Emergency included.</span></span></div>
           <div class="stat-big" style="color:var(--danger);">21</div>
         </div>
         <div class="card tile-compact">
@@ -805,19 +846,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr data-cw="Marlo Payne">
               <td><a class="case-link" href="#">Marlo Payne</a></td>
               <td>18</td><td style="color:var(--danger);font-weight:700;">9</td><td>14</td><td>4</td><td>4</td>
               <td class="gsep">231</td><td>39%</td><td>164</td><td>71%</td>
               <td class="gsep" style="color:var(--standard);font-weight:700;">86%</td><td style="color:var(--standard);font-weight:700;">75%</td>
             </tr>
-            <tr>
+            <tr data-cw="Mariela Mondragon">
               <td><a class="case-link" href="#">Mariela Mondragon</a></td>
               <td>15</td><td style="color:var(--danger);font-weight:700;">7</td><td>11</td><td>5</td><td>3</td>
               <td class="gsep">198</td><td>34%</td><td>128</td><td>65%</td>
               <td class="gsep" style="color:var(--danger);font-weight:700;">74%</td><td style="color:var(--danger);font-weight:700;">62%</td>
             </tr>
-            <tr>
+            <tr data-cw="Demetrious Thomas">
               <td><a class="case-link" href="#">Demetrious Thomas</a></td>
               <td>12</td><td style="color:var(--danger);font-weight:700;">5</td><td>9</td><td>3</td><td>2</td>
               <td class="gsep">159</td><td>27%</td><td>110</td><td>69%</td>
@@ -842,15 +883,15 @@
         </div>
         <div class="card tile-compact">
           <div class="card-title">Determinations: Pending Supervisor Review<span class="info">i<span class="tip">Recommendations your staff have submitted that are waiting on your review of the recommendation. Once you approve one it moves on to DFSS for final sign-off.</span></span></div>
-          <div class="stat-big" style="color:var(--accent);">12</div>
+          <div class="stat-big" style="color:var(--accent);" data-count="review">12</div>
         </div>
         <div class="card tile-compact" style="border-color:#f0b9b9;">
           <div class="card-title" style="color:var(--danger);">Determinations Rejected by DFSS — Requiring Revision<span class="info">i<span class="tip">Recommendations you approved that DFSS then rejected in the determination section. The case has to be corrected and resubmitted. Today these only arrive by email — this is the gap the dashboard closes.</span></span></div>
-          <div class="stat-big" style="color:var(--danger);">6</div>
+          <div class="stat-big" style="color:var(--danger);" data-count="rejected">6</div>
         </div>
         <div class="card tile-compact" style="border-color:#f0b9b9;">
           <div class="card-title" style="color:var(--danger);">Sent Back by DFSS: 311 Review Page Closeout<span class="info r">i<span class="tip">Cases CAS closed on the 311 review page before an appointment was ever made, which DFSS reviewed on the Closeout Review tab and sent back. The closure was not accepted, so the case is active again. ECM calls this &ldquo;sent back,&rdquo; not &ldquo;rejected.&rdquo;</span></span></div>
-          <div class="stat-big" style="color:var(--danger);">3</div>
+          <div class="stat-big" style="color:var(--danger);" data-count="sentback">3</div>
         </div>
       </div>
 
@@ -886,7 +927,7 @@
 
         <div>
           <div class="section-title" style="margin-top:0;">Determinations: Pending Supervisor Review of Recommendation<span class="info r">i<span class="tip">The same list as the CAS queue on the application page. Each row is a recommendation a caseworker submitted and is waiting on you to review before it reaches DFSS. &ldquo;Days Waiting&rdquo; counts from the submitted date; anything over three days is flagged.</span></span></div>
-          <div class="table-wrap box-pair">
+          <div class="table-wrap box-pair" data-list="review">
             <table>
               <thead>
                 <tr class="hdr">
@@ -922,7 +963,7 @@
 
         <div>
           <div class="section-title">Determinations Rejected by DFSS — Requiring Revision<span class="info">i<span class="tip">Cases where a recommendation was submitted, you approved it, and DFSS rejected it in the determination section. The case has to be corrected and resubmitted. &ldquo;Days Waiting&rdquo; counts from the date DFSS rejected it.</span></span></div>
-          <div class="table-wrap box-pair">
+          <div class="table-wrap box-pair" data-list="rejected">
             <table>
               <thead>
                 <tr class="hdr">
@@ -948,7 +989,7 @@
 
         <div>
           <div class="section-title">Sent Back by DFSS: 311 Review Page Closeout<span class="info r">i<span class="tip">Cases CAS closed on the 311 review page before an appointment was ever made — usually a duplicate service request, occasionally a situation the senior reported resolved. DFSS reviewed the closure on the Closeout Review tab and sent it back, so the case is active again. ECM calls this &ldquo;sent back&rdquo; on this page, not &ldquo;rejected.&rdquo;</span></span></div>
-          <div class="table-wrap box-pair">
+          <div class="table-wrap box-pair" data-list="sentback">
             <table>
               <thead>
                 <tr class="hdr">
@@ -975,7 +1016,8 @@
         <strong>Open from Oct 1, 2026:</strong>
         &nbsp;·&nbsp; Days Waiting and all priority clocks exclude weekends. Holidays are <em>not</em> excluded yet. Salvation Army&rsquo;s holiday summary is in (from Jose); it does not match the City calendar (e.g. the Friday after Thanksgiving, Employee Appreciation Day; no Indigenous Peoples&rsquo; Day). ECM&rsquo;s holiday setup is site-wide, so the schedule has to be tied to the CAS provider instead, allowing a second provider with its own schedule. Holidays pause every clock, Emergency included: an Emergency referral at 5 PM Friday before Memorial Day is due 5 PM Tuesday.
         &nbsp;·&nbsp; Visits logged before the referral (DFSS-initiated special assignments, entered into ECM after the visit) will count as 0 hours, not negative, in time-to-visit and time-to-close figures.
-        &nbsp;·&nbsp; Accessibility: this is a mock-up. The production build goes through ECM&rsquo;s accessibility standards (minimum font sizes, contrast). Karen prefers bigger type and darker text over spacing.
+        &nbsp;·&nbsp; Accessibility: this is a mock-up. The production build goes through ECM&rsquo;s accessibility standards (minimum font sizes, contrast). Per Karen, this page now uses bigger numbers and less spacing; the other dashboards have not been changed yet.
+        &nbsp;·&nbsp; The &ldquo;Showing&rdquo; picker filters the review, rejected and sent-back lists (and their counts) to one caseworker. Unassigned referrals have no caseworker yet, so that list stays whole.
         &nbsp;·&nbsp; Supervisor turnaround metrics (average days to assign by priority code, average days to review) live on the DFSS dashboard, not here.
       </div>
 
@@ -1131,6 +1173,34 @@
         subEl.textContent = META[target].sub;
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // CAS Supervisor: one-caseworker view. The tiles up top stay team-level;
+  // the caseworker table highlights the person, and the three lists that carry
+  // a Caseworker column (and their counts) filter down to that person's cases.
+  const cwSelect = document.getElementById('cwSelect');
+  cwSelect.addEventListener('change', () => {
+    const who = cwSelect.value;
+    document.querySelectorAll('#cas-supervisor tr[data-cw]').forEach(tr => {
+      tr.classList.toggle('cw-on', !!who && tr.dataset.cw === who);
+      tr.classList.toggle('cw-off', !!who && tr.dataset.cw !== who);
+    });
+    document.querySelectorAll('#cas-supervisor [data-list]').forEach(box => {
+      const tbody = box.querySelector('tbody');
+      tbody.querySelectorAll('tr.empty-row').forEach(tr => tr.remove());
+      let shown = 0;
+      tbody.querySelectorAll('tr').forEach(tr => {
+        const match = !who || tr.cells[2].textContent.trim() === who;
+        tr.hidden = !match;
+        if (match) shown++;
+      });
+      if (!shown) {
+        tbody.insertAdjacentHTML('beforeend',
+          `<tr class="empty-row"><td colspan="${box.querySelectorAll('thead th').length}">Nothing waiting for ${who}.</td></tr>`);
+      }
+      const tile = document.querySelector(`#cas-supervisor [data-count="${box.dataset.list}"]`);
+      if (tile) tile.textContent = shown;
     });
   });
 </script>

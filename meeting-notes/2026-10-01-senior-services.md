@@ -60,17 +60,34 @@ What changed in the mock-up:
 
 ## Open
 
-1. **Caseworker selector.** Karen asked to switch the page to one caseworker so she can supervise them one-on-one. The mock-up isn't built for it yet.
+1. **Caseworker selector.** *Built Oct 8, see Follow-up below.* Karen asked to switch the page to one caseworker so she can supervise them one-on-one. The mock-up isn't built for it yet.
    - Talha: the top tiles stay team-level.
    - The bottom tables (rejected, sent back, pending review) would filter to the person selected.
 2. **Data-quality analysis needs a team-total row.** Karen wants a Team Total on the "past appointments never updated" by-month table (row 17), so it visibly ties to the 59 total. That is 59 of 268 appointments with no outcome recorded.
 3. **Retraining.** Marlo has consistently not recorded visit times. Mariela improved from about 80% to about 50% and still needs to do better.
    - Karen will take the data to the next CAS team call and is bringing Syed. Syed needs to understand the analysis thoroughly before then.
-4. **Label drift — still partly open.**
+4. **Label drift.** *Closed Oct 8: the tile now says Overdue too.*
    - The supervisor tile still says *Cases: Exceeded Priority Timeframe*. Karen chose that wording on Sep 10.
    - The caseworker table now says *Overdue*, which matches the staff dashboard.
    - Decide whether the tile should follow.
 5. **Reporting.** DFSS's SPI team is asking about reports. Karen wants to pivot back to reports soon after the dashboards close out. On next meeting's agenda.
+
+## Follow-up (Oct 8)
+
+Applied to the CAS Supervisor page in `index.html`:
+
+- **The caseworker selector works.** It uses the existing "Showing" picker.
+  - The top tiles stay team-level, as Talha described.
+  - The picked person's row is highlighted in Team Performance by Caseworker, and the other rows are dimmed.
+  - The review, rejected and sent-back lists filter to that person. So do the three counts above them.
+  - Unassigned referrals have no caseworker yet, so that list stays whole.
+- **The tile is renamed** from *Cases: Exceeded Priority Timeframe* to **Cases: Overdue**. It now matches the caseworker table and the staff dashboard.
+- **Bigger numbers, less spacing**, per Karen:
+  - Tile values 26 → 40px, split values 22 → 30px, measure values 18 → 26px.
+  - Caseworker-table numbers 13 → 18px, other table cells 13 → 15px, tile titles 12 → 13px.
+  - Tile padding and section spacing are tighter.
+  - Below 1300px wide, titles and split values step back down so the quarter-width tiles still fit.
+  - This applies to the supervisor page only. The other dashboards are unchanged.
 
 ## Housekeeping
 
